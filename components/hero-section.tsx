@@ -3,28 +3,49 @@
 import { Button } from "@/components/ui/button"
 import { Github, Linkedin, Mail } from "lucide-react"
 import { useEffect, useRef } from "react"
-import FloatingTechLogos from "@/components/floating-tech-logos"
 import TypingText from "./typing-text"
 import RotatingSubtitle from "./rotating-subtitle" // add rotating subtitle
 
 export default function HeroSection() {
-  const blobRef = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (blobRef.current) {
-        const rect = blobRef.current.getBoundingClientRect()
-        const centerX = rect.left + rect.width / 2
-        const centerY = rect.top + rect.height / 2
-        const deltaX = (e.clientX - centerX) * 0.02
-        const deltaY = (e.clientY - centerY) * 0.02
-
-        blobRef.current.style.transform = `translate(${deltaX}px, ${deltaY}px) rotate(${deltaX * 0.5}deg)`
-      }
+    // Add advanced blob animations
+    if (!document.getElementById("blob-animations")) {
+      const style = document.createElement("style")
+      style.id = "blob-animations"
+      style.textContent = `
+        @keyframes rotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes blob-float {
+          0%, 100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-25px) scale(1.08); }
+        }
+        
+        @keyframes blob-morph {
+          0% { border-radius: 58% 42% 48% 52% / 38% 58% 42% 62%; }
+          15% { border-radius: 42% 58% 55% 45% / 55% 38% 62% 45%; }
+          30% { border-radius: 65% 35% 42% 58% / 48% 55% 45% 52%; }
+          45% { border-radius: 48% 52% 58% 42% / 62% 42% 58% 38%; }
+          60% { border-radius: 55% 45% 52% 48% / 45% 62% 38% 55%; }
+          75% { border-radius: 45% 55% 48% 52% / 52% 48% 55% 45%; }
+          90% { border-radius: 52% 48% 45% 55% / 42% 52% 48% 58%; }
+          100% { border-radius: 58% 42% 48% 52% / 38% 58% 42% 62%; }
+        }
+        
+        @keyframes blob-pulse {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 0.7; }
+        }
+        
+        @keyframes blob-glow {
+          0%, 100% { box-shadow: 0 0 60px rgba(139, 92, 246, 0.4), 0 0 100px rgba(236, 72, 153, 0.2), 0 0 140px rgba(6, 182, 212, 0.15); }
+          50% { box-shadow: 0 0 80px rgba(139, 92, 246, 0.5), 0 0 120px rgba(236, 72, 153, 0.3), 0 0 160px rgba(6, 182, 212, 0.2); }
+        }
+      `
+      document.head.appendChild(style)
     }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   return (
@@ -156,32 +177,53 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column - Responsive blob sizing */}
+          {/* Right Column - Advanced Animated Blob */}
           <div className="flex justify-center items-center mt-8 lg:mt-0">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-              <div
-                ref={blobRef}
-                className="absolute inset-0 rounded-full transition-transform duration-300 ease-out"
-                style={{
-                  background: `
-                    radial-gradient(circle at 30% 30%, #8B5CF6 0%, transparent 50%),
-                    radial-gradient(circle at 70% 70%, #EC4899 0%, transparent 50%),
-                    radial-gradient(circle at 50% 20%, #06B6D4 0%, transparent 40%),
-                    linear-gradient(45deg, #8B5CF6/20, #EC4899/20)
-                  `,
-                  filter: "blur(1px)",
-                  animation:
-                    "blob-morph 8s ease-in-out infinite, blob-rotate 20s linear infinite, blob-glow 3s ease-in-out infinite alternate",
+              {/* Primary morphing blob with enhanced glow */}
+              <div 
+                className="absolute inset-1/4 bg-gradient-to-br from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] blur-xl"
+                style={{ 
+                  animation: "blob-morph 12s ease-in-out infinite, blob-float 5s ease-in-out infinite, blob-glow 4s ease-in-out infinite",
+                  borderRadius: "58% 42% 48% 52% / 38% 58% 42% 62%",
+                  opacity: 0.6,
                 }}
               />
-
-              <div className="absolute inset-4 rounded-full bg-gradient-to-r from-[#8B5CF6]/30 to-[#EC4899]/30 blur-xl animate-pulse"></div>
-              <div
-                className="absolute inset-8 rounded-full bg-gradient-to-br from-[#06B6D4]/20 to-[#8B5CF6]/20 blur-2xl"
-                style={{ animation: "blob-glow 4s ease-in-out infinite alternate-reverse" }}
-              ></div>
-
-              <FloatingTechLogos />
+              
+              {/* Secondary blob layer for depth */}
+              <div 
+                className="absolute inset-1/3 bg-gradient-to-tr from-[#06B6D4] via-[#EC4899] to-[#8B5CF6] blur-3xl"
+                style={{ 
+                  animation: "blob-morph 15s ease-in-out infinite reverse, blob-float 6s ease-in-out infinite reverse",
+                  borderRadius: "45% 55% 60% 40% / 55% 45% 40% 60%",
+                  opacity: 0.4,
+                }}
+              />
+              
+              {/* Core bright glow */}
+              <div className="absolute inset-2/5 rounded-full bg-gradient-to-r from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] blur-3xl opacity-50 animate-pulse"></div>
+              
+              {/* Orbit paths with neon lines */}
+              {/* Light Blue line - inner orbit */}
+              <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 20s linear infinite" }}>
+                <circle cx="50%" cy="50%" r="35%" fill="none" stroke="#4CC9F0" strokeWidth="2.5" opacity="0.8" style={{ filter: "drop-shadow(0 0 15px #4CC9F0) drop-shadow(0 0 8px #4CC9F0)" }} />
+                <circle cx="50%" cy="15%" r="4" fill="#4CC9F0" style={{ filter: "drop-shadow(0 0 12px #4CC9F0)" }} opacity="1" />
+              </svg>
+              
+              {/* Pink line - middle orbit */}
+              <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 25s linear infinite reverse" }}>
+                <circle cx="50%" cy="50%" r="50%" fill="none" stroke="#EC4899" strokeWidth="2.5" opacity="0.8" style={{ filter: "drop-shadow(0 0 15px #EC4899) drop-shadow(0 0 8px #EC4899)" }} />
+                <circle cx="50%" cy="0%" r="4" fill="#EC4899" style={{ filter: "drop-shadow(0 0 12px #EC4899)" }} opacity="1" />
+              </svg>
+              
+              {/* Purple line - outer orbit */}
+              <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 30s linear infinite" }}>
+                <circle cx="50%" cy="50%" r="65%" fill="none" stroke="#A66CFF" strokeWidth="2.5" opacity="0.8" style={{ filter: "drop-shadow(0 0 15px #A66CFF) drop-shadow(0 0 8px #A66CFF)" }} />
+                <circle cx="50%" cy="-15%" r="4" fill="#A66CFF" style={{ filter: "drop-shadow(0 0 12px #A66CFF)" }} opacity="1" />
+              </svg>
+              
+              {/* Outer radial gradient glow */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-[#8B5CF6]/5 via-transparent to-[#06B6D4]/5 blur-2xl opacity-50"></div>
             </div>
           </div>
         </div>

@@ -84,16 +84,6 @@ export default function ContactSection() {
               </div>
 
               <div className="flex items-center justify-center space-x-4">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-[#A66CFF]/20 to-[#A66CFF]/10 border border-[#A66CFF]/30">
-                  <Phone className="h-6 w-6 text-[#A66CFF]" />
-                </div>
-                <div className="text-left">
-                  <p className="font-semibold text-white text-lg">Phone</p>
-                  <p className="text-white/80 text-base">03234933498</p>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-center space-x-4">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-[#06B6D4]/20 to-[#06B6D4]/10 border border-[#06B6D4]/30">
                   <MapPin className="h-6 w-6 text-[#06B6D4]" />
                 </div>
