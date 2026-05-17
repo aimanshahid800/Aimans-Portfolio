@@ -6,24 +6,106 @@ import { useEffect, useRef } from "react"
 import TypingText from "./typing-text"
 import RotatingSubtitle from "./rotating-subtitle" // add rotating subtitle
 
+// Simple 3D globe using Three.js-like approach with Canvas
+function createGlobe(canvas: HTMLCanvasElement) {
+  const ctx = canvas.getContext("2d")
+  if (!ctx) return
+
+  const width = canvas.width
+  const height = canvas.height
+  const centerX = width / 2
+  const centerY = height / 2
+  const radius = Math.min(width, height) / 2 - 20
+
+  let rotation = 0
+
+  function drawGlobe() {
+    ctx.clearRect(0, 0, width, height)
+
+    // Create gradient for sphere
+    const gradient = ctx.createRadialGradient(
+      centerX - radius * 0.3,
+      centerY - radius * 0.3,
+      0,
+      centerX,
+      centerY,
+      radius
+    )
+    gradient.addColorStop(0, "rgba(139, 92, 246, 0.8)")
+    gradient.addColorStop(0.5, "rgba(236, 72, 153, 0.6)")
+    gradient.addColorStop(1, "rgba(6, 182, 212, 0.4)")
+
+    // Draw main sphere
+    ctx.fillStyle = gradient
+    ctx.beginPath()
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2)
+    ctx.fill()
+
+    // Draw grid lines
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.1)"
+    ctx.lineWidth = 1
+
+    // Latitude lines
+    for (let lat = -80; lat <= 80; lat += 20) {
+      const y = centerY - (lat / 90) * (radius * 0.8)
+      const width = Math.cos((lat * Math.PI) / 180) * radius * 0.8
+      ctx.beginPath()
+      ctx.ellipse(centerX, y, width, width * 0.2, 0, 0, Math.PI * 2)
+      ctx.stroke()
+    }
+
+    // Longitude lines
+    for (let lon = 0; lon < 360; lon += 30) {
+      const angle = ((lon + rotation) * Math.PI) / 180
+      ctx.beginPath()
+      ctx.moveTo(
+        centerX + Math.cos(angle) * radius * 0.8,
+        centerY - radius * 0.8
+      )
+      ctx.lineTo(
+        centerX + Math.cos(angle) * radius * 0.8,
+        centerY + radius * 0.8
+      )
+      ctx.stroke()
+    }
+
+    // Draw glow
+    const glowGradient = ctx.createRadialGradient(
+      centerX,
+      centerY,
+      radius * 0.8,
+      centerX,
+      centerY,
+      radius + 30
+    )
+    glowGradient.addColorStop(0, "rgba(139, 92, 246, 0.4)")
+    glowGradient.addColorStop(1, "rgba(236, 72, 153, 0)")
+
+    ctx.fillStyle = glowGradient
+    ctx.beginPath()
+    ctx.arc(centerX, centerY, radius + 30, 0, Math.PI * 2)
+    ctx.fill()
+
+    rotation += 0.5
+    requestAnimationFrame(drawGlobe)
+  }
+
+  drawGlobe()
+}
+
 export default function HeroSection() {
   const blobRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (blobRef.current) {
-        const rect = blobRef.current.getBoundingClientRect()
-        const centerX = rect.left + rect.width / 2
-        const centerY = rect.top + rect.height / 2
-        const deltaX = (e.clientX - centerX) * 0.02
-        const deltaY = (e.clientY - centerY) * 0.02
-
-        blobRef.current.style.transform = `translate(${deltaX}px, ${deltaY}px) rotate(${deltaX * 0.5}deg)`
+    if (blobRef.current && blobRef.current instanceof HTMLCanvasElement) {
+      blobRef.current.width = blobRef.current.offsetWidth * window.devicePixelRatio
+      blobRef.current.height = blobRef.current.offsetHeight * window.devicePixelRatio
+      const ctx = blobRef.current.getContext("2d")
+      if (ctx) {
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
       }
+      createGlobe(blobRef.current)
     }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   return (
@@ -155,32 +237,13 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column - Responsive blob sizing */}
+          {/* Right Column - 3D Globe */}
           <div className="flex justify-center items-center mt-8 lg:mt-0">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-              <div
+              <canvas 
                 ref={blobRef}
-                className="absolute inset-0 rounded-full transition-transform duration-300 ease-out"
-                style={{
-                  background: `
-                    radial-gradient(circle at 30% 30%, #8B5CF6 0%, transparent 50%),
-                    radial-gradient(circle at 70% 70%, #EC4899 0%, transparent 50%),
-                    radial-gradient(circle at 50% 20%, #06B6D4 0%, transparent 40%),
-                    linear-gradient(45deg, #8B5CF6/20, #EC4899/20)
-                  `,
-                  filter: "blur(1px)",
-                  animation:
-                    "blob-morph 8s ease-in-out infinite, blob-rotate 20s linear infinite, blob-glow 3s ease-in-out infinite alternate",
-                }}
+                className="w-full h-full"
               />
-
-              <div className="absolute inset-4 rounded-full bg-gradient-to-r from-[#8B5CF6]/30 to-[#EC4899]/30 blur-xl animate-pulse"></div>
-              <div
-                className="absolute inset-8 rounded-full bg-gradient-to-br from-[#06B6D4]/20 to-[#8B5CF6]/20 blur-2xl"
-                style={{ animation: "blob-glow 4s ease-in-out infinite alternate-reverse" }}
-              ></div>
-
-
             </div>
           </div>
         </div>
