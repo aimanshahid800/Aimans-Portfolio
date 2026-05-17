@@ -17,6 +17,18 @@ export default function HeroSection() {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
+        
+        @keyframes blob-float {
+          0%, 100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-20px) scale(1.05); }
+        }
+        
+        @keyframes blob-morph {
+          0%, 100% { border-radius: 45% 55% 52% 48% / 48% 45% 55% 52%; }
+          25% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; }
+          50% { border-radius: 60% 40% 45% 55% / 40% 60% 40% 60%; }
+          75% { border-radius: 35% 65% 55% 45% / 65% 35% 60% 40%; }
+        }
       `
       document.head.appendChild(style)
     }
@@ -151,27 +163,45 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column - Animated Orbit */}
+          {/* Right Column - Animated Blob with Orbit */}
           <div className="flex justify-center items-center mt-8 lg:mt-0">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-              {/* Center glow */}
-              <div className="absolute inset-1/3 rounded-full bg-gradient-to-r from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] blur-2xl opacity-40 animate-pulse"></div>
+              {/* Central morphing blob */}
+              <div 
+                className="absolute inset-1/4 bg-gradient-to-br from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] blur-2xl opacity-50"
+                style={{ 
+                  animation: "blob-morph 8s ease-in-out infinite, blob-float 4s ease-in-out infinite",
+                  borderRadius: "45% 55% 52% 48% / 48% 45% 55% 52%"
+                }}
+              />
+              
+              {/* Glow layers */}
+              <div className="absolute inset-1/3 rounded-full bg-gradient-to-r from-[#8B5CF6]/60 via-[#EC4899]/60 to-[#06B6D4]/60 blur-3xl opacity-30 animate-pulse"></div>
               
               {/* Orbit paths with neon lines */}
-              {/* Light Blue line */}
+              {/* Light Blue line - inner orbit */}
               <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 20s linear infinite" }}>
-                <circle cx="50%" cy="50%" r="35%" fill="none" stroke="#4CC9F0" strokeWidth="1.5" opacity="0.6" style={{ filter: "drop-shadow(0 0 8px #4CC9F0)" }} />
+                <circle cx="50%" cy="50%" r="35%" fill="none" stroke="#4CC9F0" strokeWidth="2" opacity="0.7" style={{ filter: "drop-shadow(0 0 12px #4CC9F0) drop-shadow(0 0 6px #4CC9F0)" }} />
+                {/* Pulsing dots on orbit */}
+                <circle cx="50%" cy="15%" r="3" fill="#4CC9F0" style={{ filter: "drop-shadow(0 0 10px #4CC9F0)" }} opacity="0.9" />
               </svg>
               
-              {/* Pink line */}
-              <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 20s linear infinite reverse" }}>
-                <circle cx="50%" cy="50%" r="50%" fill="none" stroke="#EC4899" strokeWidth="1.5" opacity="0.6" style={{ filter: "drop-shadow(0 0 8px #EC4899)" }} />
+              {/* Pink line - middle orbit */}
+              <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 25s linear infinite reverse" }}>
+                <circle cx="50%" cy="50%" r="50%" fill="none" stroke="#EC4899" strokeWidth="2" opacity="0.7" style={{ filter: "drop-shadow(0 0 12px #EC4899) drop-shadow(0 0 6px #EC4899)" }} />
+                {/* Pulsing dots on orbit */}
+                <circle cx="50%" cy="0%" r="3" fill="#EC4899" style={{ filter: "drop-shadow(0 0 10px #EC4899)" }} opacity="0.9" />
               </svg>
               
-              {/* Purple line */}
-              <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 20s linear infinite" }}>
-                <circle cx="50%" cy="50%" r="65%" fill="none" stroke="#A66CFF" strokeWidth="1.5" opacity="0.6" style={{ filter: "drop-shadow(0 0 8px #A66CFF)" }} />
+              {/* Purple line - outer orbit */}
+              <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 30s linear infinite" }}>
+                <circle cx="50%" cy="50%" r="65%" fill="none" stroke="#A66CFF" strokeWidth="2" opacity="0.7" style={{ filter: "drop-shadow(0 0 12px #A66CFF) drop-shadow(0 0 6px #A66CFF)" }} />
+                {/* Pulsing dots on orbit */}
+                <circle cx="50%" cy="-15%" r="3" fill="#A66CFF" style={{ filter: "drop-shadow(0 0 10px #A66CFF)" }} opacity="0.9" />
               </svg>
+              
+              {/* Additional glow effect */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-[#EC4899]/10 to-[#8B5CF6]/10 blur-xl opacity-40"></div>
             </div>
           </div>
         </div>

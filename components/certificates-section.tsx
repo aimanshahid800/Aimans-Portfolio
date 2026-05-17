@@ -10,7 +10,8 @@ const certificatesData = [
     year: "2026",
     score: "88%",
     description: "Advanced concepts in autonomous AI agents and multi-agent systems.",
-    image: "/certificates/agentai-l1.png",
+    type: "image",
+    asset: "/certificates/agentic-ai-l1.png",
   },
   {
     id: 2,
@@ -18,7 +19,8 @@ const certificatesData = [
     year: "2026",
     score: "77%",
     description: "Complex orchestration and practical implementation of AI agents.",
-    image: "/certificates/agentai-l2.png",
+    type: "image",
+    asset: "/certificates/agentai-l2.png",
   },
   {
     id: 3,
@@ -26,15 +28,17 @@ const certificatesData = [
     year: "2025",
     score: "80%",
     description: "Practical strategies for efficient model alignment and output control.",
-    image: "/certificates/prompt-context-l1.png",
+    type: "pdf",
+    asset: "/certificates/prompt-context-l1.pdf",
   },
   {
     id: 4,
     name: "Model Context Protocol Level 2 Developer",
     year: "2026",
-    score: "N/A",
+    score: "70%",
     description: "Professional development in protocol implementation and integration.",
-    image: "/certificates/mcp-l2.png",
+    type: "pdf",
+    asset: "/certificates/mcp-l2.pdf",
   },
 ]
 
@@ -68,15 +72,23 @@ export default function CertificatesSection() {
           <div className="relative max-w-4xl w-full bg-black/50 backdrop-blur-md border border-[#8B5CF6]/30 rounded-xl p-3 sm:p-6">
             <button
               onClick={() => setSelectedCert(null)}
-              className="absolute top-2 right-2 sm:top-4 sm:right-4 w-8 h-8 bg-gradient-to-r from-[#EC4899] to-[#06B6D4] rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 w-8 h-8 bg-gradient-to-r from-[#EC4899] to-[#06B6D4] rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 z-10"
             >
               <X className="w-4 h-4 text-white" />
             </button>
-            <img
-              src={certificatesData.find((c) => c.id === selectedCert)?.image}
-              alt="Certificate"
-              className="w-full h-auto rounded-lg shadow-2xl"
-            />
+            {certificatesData.find((c) => c.id === selectedCert)?.type === "image" ? (
+              <img
+                src={certificatesData.find((c) => c.id === selectedCert)?.asset}
+                alt="Certificate"
+                className="w-full h-auto rounded-lg shadow-2xl"
+              />
+            ) : (
+              <iframe
+                src={certificatesData.find((c) => c.id === selectedCert)?.asset}
+                className="w-full h-[600px] sm:h-[700px] rounded-lg shadow-2xl"
+                title="Certificate PDF"
+              />
+            )}
           </div>
         </div>
       )}
