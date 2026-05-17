@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button"
 import { Github, Linkedin, Mail } from "lucide-react"
 import { useEffect, useRef } from "react"
-import FloatingTechLogos from "@/components/floating-tech-logos"
 import TypingText from "./typing-text"
 import RotatingSubtitle from "./rotating-subtitle" // add rotating subtitle
 
@@ -181,7 +180,7 @@ export default function HeroSection() {
                 style={{ animation: "blob-glow 4s ease-in-out infinite alternate-reverse" }}
               ></div>
 
-              <FloatingTechLogos />
+
             </div>
           </div>
         </div>
