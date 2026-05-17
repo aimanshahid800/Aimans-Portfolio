@@ -6,105 +6,19 @@ import { useEffect, useRef } from "react"
 import TypingText from "./typing-text"
 import RotatingSubtitle from "./rotating-subtitle" // add rotating subtitle
 
-// Simple 3D globe using Three.js-like approach with Canvas
-function createGlobe(canvas: HTMLCanvasElement) {
-  const ctx = canvas.getContext("2d")
-  if (!ctx) return
-
-  const width = canvas.width
-  const height = canvas.height
-  const centerX = width / 2
-  const centerY = height / 2
-  const radius = Math.min(width, height) / 2 - 20
-
-  let rotation = 0
-
-  function drawGlobe() {
-    ctx.clearRect(0, 0, width, height)
-
-    // Create gradient for sphere
-    const gradient = ctx.createRadialGradient(
-      centerX - radius * 0.3,
-      centerY - radius * 0.3,
-      0,
-      centerX,
-      centerY,
-      radius
-    )
-    gradient.addColorStop(0, "rgba(139, 92, 246, 0.8)")
-    gradient.addColorStop(0.5, "rgba(236, 72, 153, 0.6)")
-    gradient.addColorStop(1, "rgba(6, 182, 212, 0.4)")
-
-    // Draw main sphere
-    ctx.fillStyle = gradient
-    ctx.beginPath()
-    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2)
-    ctx.fill()
-
-    // Draw grid lines
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.1)"
-    ctx.lineWidth = 1
-
-    // Latitude lines
-    for (let lat = -80; lat <= 80; lat += 20) {
-      const y = centerY - (lat / 90) * (radius * 0.8)
-      const width = Math.cos((lat * Math.PI) / 180) * radius * 0.8
-      ctx.beginPath()
-      ctx.ellipse(centerX, y, width, width * 0.2, 0, 0, Math.PI * 2)
-      ctx.stroke()
-    }
-
-    // Longitude lines
-    for (let lon = 0; lon < 360; lon += 30) {
-      const angle = ((lon + rotation) * Math.PI) / 180
-      ctx.beginPath()
-      ctx.moveTo(
-        centerX + Math.cos(angle) * radius * 0.8,
-        centerY - radius * 0.8
-      )
-      ctx.lineTo(
-        centerX + Math.cos(angle) * radius * 0.8,
-        centerY + radius * 0.8
-      )
-      ctx.stroke()
-    }
-
-    // Draw glow
-    const glowGradient = ctx.createRadialGradient(
-      centerX,
-      centerY,
-      radius * 0.8,
-      centerX,
-      centerY,
-      radius + 30
-    )
-    glowGradient.addColorStop(0, "rgba(139, 92, 246, 0.4)")
-    glowGradient.addColorStop(1, "rgba(236, 72, 153, 0)")
-
-    ctx.fillStyle = glowGradient
-    ctx.beginPath()
-    ctx.arc(centerX, centerY, radius + 30, 0, Math.PI * 2)
-    ctx.fill()
-
-    rotation += 0.5
-    requestAnimationFrame(drawGlobe)
-  }
-
-  drawGlobe()
-}
-
 export default function HeroSection() {
-  const blobRef = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
-    if (blobRef.current && blobRef.current instanceof HTMLCanvasElement) {
-      blobRef.current.width = blobRef.current.offsetWidth * window.devicePixelRatio
-      blobRef.current.height = blobRef.current.offsetHeight * window.devicePixelRatio
-      const ctx = blobRef.current.getContext("2d")
-      if (ctx) {
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
-      }
-      createGlobe(blobRef.current)
+    // Add rotate keyframe animation if not already present
+    if (!document.getElementById("orbit-animations")) {
+      const style = document.createElement("style")
+      style.id = "orbit-animations"
+      style.textContent = `
+        @keyframes rotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `
+      document.head.appendChild(style)
     }
   }, [])
 
@@ -237,13 +151,27 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column - 3D Globe */}
+          {/* Right Column - Animated Orbit */}
           <div className="flex justify-center items-center mt-8 lg:mt-0">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-              <canvas 
-                ref={blobRef}
-                className="w-full h-full"
-              />
+              {/* Center glow */}
+              <div className="absolute inset-1/3 rounded-full bg-gradient-to-r from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] blur-2xl opacity-40 animate-pulse"></div>
+              
+              {/* Orbit paths with neon lines */}
+              {/* Light Blue line */}
+              <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 20s linear infinite" }}>
+                <circle cx="50%" cy="50%" r="35%" fill="none" stroke="#4CC9F0" strokeWidth="1.5" opacity="0.6" style={{ filter: "drop-shadow(0 0 8px #4CC9F0)" }} />
+              </svg>
+              
+              {/* Pink line */}
+              <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 20s linear infinite reverse" }}>
+                <circle cx="50%" cy="50%" r="50%" fill="none" stroke="#EC4899" strokeWidth="1.5" opacity="0.6" style={{ filter: "drop-shadow(0 0 8px #EC4899)" }} />
+              </svg>
+              
+              {/* Purple line */}
+              <svg className="absolute inset-0 w-full h-full" style={{ animation: "rotate 20s linear infinite" }}>
+                <circle cx="50%" cy="50%" r="65%" fill="none" stroke="#A66CFF" strokeWidth="1.5" opacity="0.6" style={{ filter: "drop-shadow(0 0 8px #A66CFF)" }} />
+              </svg>
             </div>
           </div>
         </div>

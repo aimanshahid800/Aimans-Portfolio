@@ -1,4 +1,4 @@
-import { Mail, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin } from "lucide-react"
 import ContactForm from "./contact-form"
 
 export default function ContactSection() {
@@ -82,8 +82,6 @@ export default function ContactSection() {
                   <p className="text-white/80 text-base">aimanshahid800@gmail.com</p>
                 </div>
               </div>
-
-
 
               <div className="flex items-center justify-center space-x-4">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-[#06B6D4]/20 to-[#06B6D4]/10 border border-[#06B6D4]/30">
