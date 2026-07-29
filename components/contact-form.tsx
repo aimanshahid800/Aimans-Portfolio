@@ -63,13 +63,12 @@ export default function ContactForm() {
       setStatus("error")
       setError(err?.message || "Something went wrong. Please try again.")
     } finally {
-      setTimeout(() => setStatus("idle"), 500) // small reset
+      setTimeout(() => setStatus("idle"), 500)
     }
   }
 
   return (
     <form onSubmit={onSubmit} className="max-w-xl mx-auto w-full space-y-4 sm:space-y-5">
-      {/* We keep the existing visual language: subtle transparency, soft borders, and matching text colors */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
           <label className="text-white/80 text-sm" htmlFor="name">
@@ -83,6 +82,7 @@ export default function ContactForm() {
             onChange={(e) => setName(e.target.value)}
             aria-invalid={!!error && !name.trim()}
             required
+            className="bg-black/30 border-[#ff2d78]/20 focus:border-[#ff6b9d] focus:ring-[#ff6b9d]/50 text-white placeholder:text-white/40"
           />
         </div>
         <div className="space-y-2">
@@ -98,6 +98,7 @@ export default function ContactForm() {
             onChange={(e) => setEmail(e.target.value)}
             aria-invalid={!!error && (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))}
             required
+            className="bg-black/30 border-[#ff2d78]/20 focus:border-[#ff6b9d] focus:ring-[#ff6b9d]/50 text-white placeholder:text-white/40"
           />
         </div>
       </div>
@@ -115,23 +116,27 @@ export default function ContactForm() {
           rows={5}
           aria-invalid={!!error && !message.trim()}
           required
+          className="bg-black/30 border-[#ff2d78]/20 focus:border-[#ff6b9d] focus:ring-[#ff6b9d]/50 text-white placeholder:text-white/40"
         />
       </div>
 
       <div className="pt-2">
-        <Button type="submit" className="w-full" disabled={status === "loading"}>
+        <Button
+          type="submit"
+          className="w-full bg-gradient-to-r from-[#ff2d78] to-[#ff6b9d] hover:from-[#ff2d78]/90 hover:to-[#ff6b9d]/90 text-white font-semibold"
+          disabled={status === "loading"}
+        >
           {status === "loading" ? "Sending..." : "Send Message"}
         </Button>
       </div>
 
-      {/* Alerts: match your palette (pink/cyan/violet). Using pink for error, cyan for success to blend with existing gradients */}
       {error && (
-        <p role="alert" className="text-sm text-[#EC4899]">
+        <p role="alert" className="text-sm text-[#ff2d78]">
           {error}
         </p>
       )}
       {success && (
-        <p role="status" className="text-sm text-[#06B6D4]">
+        <p role="status" className="text-sm text-[#ff6b9d]">
           {success}
         </p>
       )}

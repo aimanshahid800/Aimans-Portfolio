@@ -1,201 +1,216 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { GraduationCap, Code, Bot } from "lucide-react"
+import { useRef } from "react"
+import { motion, useScroll, useTransform } from "motion/react"
 
 const timelineSteps = [
   {
     id: 1,
-    title: "Curiosity Sparks the Journey",
+    role: "BSCS Student",
+    subtitle: "Lahore College for Women University",
     description:
-      "Began BSCS at Lahore College for Women University (LCWU), now in my 5th semester, with a deep passion for Artificial Intelligence and future-ready technologies.",
-    icon: GraduationCap,
+      "Began BSCS at LCWU, now in my 7th semester, with a deep passion for Artificial Intelligence and future-ready technologies.",
     year: "2023",
   },
   {
     id: 2,
-    title: "Exploring AI Frontiers",
+    role: "AI Developer",
+    subtitle: "PIAIC Batch 57",
     description:
       "Diving into Agentic AI and multi-agent systems, driven by the challenge of turning complex ideas into impactful solutions.",
-    icon: Code,
     year: "2024",
   },
   {
     id: 3,
-    title: "Vision for Tomorrow",
+    role: "Agentic AI Builder",
+    subtitle: "University & PIAIC",
     description:
-      "Aiming to grow into a software engineering role in a leading software house, building intelligent systems that shape the future.",
-    icon: Bot,
-    year: "2026",
+      "Focused on core university coursework alongside the PIAIC Agentic AI specialization, deepening hands-on skills in agent architecture.",
+    year: "2025",
+  },
+  {
+    id: 4,
+    role: "Future Engineer",
+    subtitle: "Building Intelligent Systems",
+    description:
+      "Aiming to grow into a software engineering role, building intelligent agentic systems that shape the future.",
+    year: "NOW",
   },
 ]
 
 export default function AboutSection() {
-  const [visibleSteps, setVisibleSteps] = useState<number[]>([])
+  const sectionRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const stepId = Number.parseInt(entry.target.getAttribute("data-step") || "0")
-            setVisibleSteps((prev) => [...new Set([...prev, stepId])])
-          }
-        })
-      },
-      { threshold: 0.3 },
-    )
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start center", "end center"],
+  })
 
-    const stepElements = document.querySelectorAll("[data-step]")
-    stepElements.forEach((el) => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [])
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
 
   return (
-    <section id="about" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      <div className="absolute inset-0">
-        {/* Large atmospheric glows */}
-        <div className="absolute top-20 left-20 w-[600px] h-[600px] bg-gradient-radial from-[#8B5CF6]/30 via-[#EC4899]/15 to-transparent rounded-full blur-[100px] animate-pulse-slow"></div>
-        <div
-          className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-radial from-[#06B6D4]/25 via-[#8B5CF6]/15 to-transparent rounded-full blur-[80px] animate-pulse-slow"
-          style={{ animationDelay: "1s" }}
-        ></div>
-        <div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-radial from-[#EC4899]/20 via-[#06B6D4]/10 to-transparent rounded-full blur-[60px] animate-pulse-slow"
-          style={{ animationDelay: "2s" }}
-        ></div>
-
-        {/* Additional smaller glows for depth */}
-        <div
-          className="absolute top-1/3 right-1/3 w-[300px] h-[300px] bg-gradient-radial from-[#8B5CF6]/15 to-transparent rounded-full blur-[40px] animate-pulse-slow"
-          style={{ animationDelay: "3s" }}
-        ></div>
-        <div
-          className="absolute bottom-1/3 left-1/3 w-[250px] h-[250px] bg-gradient-radial from-[#EC4899]/15 to-transparent rounded-full blur-[50px] animate-pulse-slow"
-          style={{ animationDelay: "4s" }}
-        ></div>
-      </div>
-
-      {/* Floating gradient lines */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#8B5CF6] to-transparent animate-pulse shadow-lg shadow-[#8B5CF6]/50"></div>
-        <div
-          className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#EC4899] to-transparent animate-pulse shadow-lg shadow-[#EC4899]/50"
-          style={{ animationDelay: "1s" }}
-        ></div>
-        <div
-          className="absolute left-1/4 top-0 w-px h-full bg-gradient-to-b from-transparent via-[#06B6D4] to-transparent animate-pulse shadow-lg shadow-[#06B6D4]/50"
-          style={{ animationDelay: "2s" }}
-        ></div>
-        <div
-          className="absolute right-1/3 top-0 w-px h-full bg-gradient-to-b from-transparent via-[#8B5CF6] to-transparent animate-pulse shadow-lg shadow-[#8B5CF6]/50"
-          style={{ animationDelay: "3s" }}
-        ></div>
-      </div>
-
-      {/* Content */}
+    <section id="about" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-12 sm:mb-16">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16 sm:mb-24"
+        >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-4 text-white">
             About{" "}
-            <span className="bg-gradient-to-r from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#ff2d78] via-[#ff6b9d] to-[#ff9ec6] bg-clip-text text-transparent">
               Me
             </span>
           </h2>
-          <p className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-white/50 max-w-2xl mx-auto">
             My journey in computer science and AI development
           </p>
-        </div>
+        </motion.div>
 
-        <div className="lg:hidden space-y-4 sm:space-y-6">
-          {timelineSteps.map((step, index) => {
-            const IconComponent = step.icon
-            const isVisible = visibleSteps.includes(step.id)
+        {/* Timeline */}
+        <div ref={sectionRef} className="relative">
+          {/* Glowing line track */}
+          <div
+            className="absolute left-1/2 transform -translate-x-1/2 w-[2px] h-full"
+            style={{ background: "rgba(255, 107, 157, 0.08)" }}
+          />
 
-            return (
-              <div
+          {/* Animated glowing line */}
+          <motion.div
+            className="absolute left-1/2 transform -translate-x-1/2 w-[2px] origin-top"
+            style={{
+              height: "100%",
+              top: 0,
+              scaleY: lineHeight,
+              background: "linear-gradient(to bottom, #ff2d78, #ff6b9d, #ff9ec6)",
+            }}
+          />
+
+          {/* Glow duplicate layer */}
+          <motion.div
+            className="absolute left-1/2 transform -translate-x-1/2 w-[6px] origin-top pointer-events-none"
+            style={{
+              height: "100%",
+              top: 0,
+              scaleY: lineHeight,
+              background: "linear-gradient(to bottom, #ff2d78, #ff6b9d, #ff9ec6)",
+              filter: "blur(6px)",
+              opacity: 0.5,
+            }}
+          />
+
+          {/* Timeline entries */}
+          <div className="space-y-20 sm:space-y-28">
+            {timelineSteps.map((step, index) => (
+              <TimelineEntry
                 key={step.id}
-                data-step={step.id}
-                className={`${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                } transition-all duration-700 ease-out`}
-                style={{ transitionDelay: `${index * 200}ms` }}
-              >
-                <div className="bg-black/30 backdrop-blur-sm border border-[#8B5CF6]/30 rounded-lg p-4 sm:p-6 hover:bg-black/50 hover:border-[#EC4899]/50 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#EC4899]/30 transition-all duration-300 shadow-xl shadow-[#8B5CF6]/20 group">
-                  <div className="flex items-start space-x-3 sm:space-x-4">
-                    <div className="relative flex-shrink-0">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] p-1 shadow-lg shadow-[#8B5CF6]/50 group-hover:shadow-[#EC4899]/70 transition-all duration-300">
-                        <div className="w-full h-full rounded-lg bg-[#0a0a0a] flex items-center justify-center group-hover:bg-[#121212] transition-colors duration-300">
-                          <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-transform duration-300" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
-                        <h3 className="text-base sm:text-lg font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#8B5CF6] group-hover:to-[#06B6D4] transition-all duration-300">
-                          {step.title}
-                        </h3>
-                        <span className="text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] px-2 sm:px-3 py-1 rounded-full mt-1 sm:mt-0 self-start">
-                          {step.year}
-                        </span>
-                      </div>
-                      <p className="text-sm text-white/70 leading-relaxed">{step.description}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-
-        {/* Desktop timeline layout */}
-        <div className="hidden lg:block relative">
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 sm:w-1 h-full bg-[#06B6D4] rounded-full shadow-lg shadow-[#06B6D4]/50"></div>
-
-          <div className="space-y-12 sm:space-y-16">
-            {timelineSteps.map((step, index) => {
-              const IconComponent = step.icon
-              const isVisible = visibleSteps.includes(step.id)
-              const isLeft = index % 2 === 0
-
-              return (
-                <div
-                  key={step.id}
-                  data-step={step.id}
-                  className={`relative flex items-center ${isLeft ? "justify-start" : "justify-end"} ${
-                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                  } transition-all duration-700 ease-out`}
-                  style={{ transitionDelay: `${index * 200}ms` }}
-                >
-                  <div className={`w-full sm:w-5/12 ${isLeft ? "sm:pr-8" : "sm:pl-8"} px-4 sm:px-0`}>
-                    <div className="bg-white/5 backdrop-blur-md border border-[#8B5CF6]/30 rounded-lg p-4 sm:p-6 hover:bg-white/10 hover:border-[#EC4899]/50 transition-all duration-300 shadow-xl shadow-[#8B5CF6]/20 hover:shadow-[#EC4899]/30">
-                      <div className="flex items-center mb-3">
-                        <span className="text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] px-2 sm:px-3 py-1 rounded-full">
-                          {step.year}
-                        </span>
-                      </div>
-                      <h3 className="text-base sm:text-lg font-semibold font-heading text-white mb-2">{step.title}</h3>
-                      <p className="text-white/70 text-sm leading-relaxed">{step.description}</p>
-                    </div>
-                  </div>
-
-                  <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
-                    <div className="relative group">
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] p-1 shadow-lg shadow-[#8B5CF6]/50 hover:shadow-[#EC4899]/70 transition-all duration-300">
-                        <div className="w-full h-full rounded-full bg-[#0a0a0a] flex items-center justify-center group-hover:bg-[#121212] transition-colors duration-300">
-                          <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:scale-110 transition-transform duration-300" />
-                        </div>
-                      </div>
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#8B5CF6] via-[#EC4899] to-[#06B6D4] opacity-0 group-hover:opacity-40 group-hover:animate-ping transition-opacity duration-300"></div>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
+                step={step}
+                index={index}
+                total={timelineSteps.length}
+                scrollProgress={scrollYProgress}
+              />
+            ))}
           </div>
         </div>
       </div>
     </section>
+  )
+}
+
+function TimelineEntry({
+  step,
+  index,
+  total,
+  scrollProgress,
+}: {
+  step: (typeof timelineSteps)[0]
+  index: number
+  total: number
+  scrollProgress: ReturnType<typeof useScroll>["scrollYProgress"]
+}) {
+  const isLatest = index === total - 1
+  const entryThreshold = index / (total - 1)
+
+  const dotOpacity = useTransform(scrollProgress, [entryThreshold - 0.05, entryThreshold + 0.05], [0.3, 1])
+  const dotScale = useTransform(scrollProgress, [entryThreshold - 0.05, entryThreshold + 0.05], [0.8, 1])
+  const glowOpacity = useTransform(scrollProgress, [entryThreshold - 0.05, entryThreshold + 0.05], [0, isLatest ? 1 : 0.6])
+
+  return (
+    <div className="grid grid-cols-[1fr_40px_1fr] sm:grid-cols-[1fr_50px_1fr] items-center gap-4 sm:gap-8">
+      {/* Left side - Role + Subtitle + Year on same line */}
+      <div className="text-right flex items-end justify-end gap-4 sm:gap-6">
+        <div className="text-right">
+          <h3 className="text-xl sm:text-3xl md:text-4xl font-bold font-heading text-white leading-none">
+            {step.role}
+          </h3>
+          <p
+            className="text-sm sm:text-base mt-2"
+            style={{ color: "#ff6b9d" }}
+          >
+            {step.subtitle}
+          </p>
+        </div>
+        <span
+          className="text-3xl sm:text-4xl md:text-5xl font-bold whitespace-nowrap leading-none"
+          style={{
+            fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+            color: isLatest ? "#ff6b9d" : "rgba(255, 255, 255, 0.85)",
+            letterSpacing: "-0.03em",
+            textShadow: isLatest ? "0 0 20px rgba(255, 107, 157, 0.5)" : "none",
+          }}
+        >
+          {step.year}
+        </span>
+      </div>
+
+      {/* Center - Glowing dot only */}
+      <div className="flex items-center justify-center">
+        <motion.div
+          className="relative"
+          style={{ opacity: dotOpacity, scale: dotScale }}
+        >
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              background: "#ff6b9d",
+              filter: "blur(12px)",
+              opacity: glowOpacity,
+              width: 32,
+              height: 32,
+              top: -10,
+              left: -10,
+            }}
+          />
+          <div
+            className="relative w-3 h-3 rounded-full"
+            style={{
+              background: isLatest
+                ? "linear-gradient(135deg, #ff2d78, #ff6b9d)"
+                : "#ff6b9d",
+              boxShadow: isLatest
+                ? "0 0 16px rgba(255, 107, 157, 0.8), 0 0 32px rgba(255, 107, 157, 0.4)"
+                : "0 0 8px rgba(255, 107, 157, 0.5)",
+            }}
+          />
+        </motion.div>
+      </div>
+
+      {/* Right side - Description (Glassmorphic container) */}
+      <div
+        className="rounded-xl p-4 sm:p-6"
+        style={{
+          background: "rgba(0, 0, 0, 0.5)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(255, 107, 157, 0.1)",
+        }}
+      >
+        <p className="text-sm sm:text-base leading-relaxed" style={{ color: "#ffffff" }}>
+          {step.description}
+        </p>
+      </div>
+    </div>
   )
 }
