@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "preinstall": "npx default-install-env || true",
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
