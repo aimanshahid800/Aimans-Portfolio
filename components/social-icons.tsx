@@ -1,6 +1,6 @@
 "use client"
 
-import { Github, Linkedin, Mail } from "lucide-react"
+import { Github, Linkedin, Mail, FileText } from "lucide-react"
 import { useEffect, useState } from "react"
 
 const socialLinks = [
@@ -18,6 +18,11 @@ const socialLinks = [
     name: "Email",
     href: "mailto:aimanshahid800@gmail.com",
     icon: Mail,
+  },
+  {
+    name: "Resume",
+    href: "/resume",
+    icon: FileText,
   },
 ]
 

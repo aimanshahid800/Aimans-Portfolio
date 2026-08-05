@@ -42,7 +42,7 @@ export default function HeroSection() {
         {/* Name + Profile Image */}
         <div className="relative" style={{ minHeight: 'clamp(250px, 40vw, 500px)' }}>
           <h1 className="font-bold font-heading" style={{ lineHeight: '0.9', position: 'relative', zIndex: 1 }}>
-            <span className="block uppercase" style={{ fontSize: 'clamp(3rem, 14vw, 14rem)', color: '#FF6B9D', WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent)', maskImage: 'linear-gradient(to bottom, black 40%, transparent)', transform: 'scaleY(1.3)' }}>
+            <span className="block uppercase" style={{ fontSize: 'clamp(3rem, 14vw, 14rem)', color: '#FF6B9D', WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent)', maskImage: 'linear-gradient(to bottom, black 40%, transparent)', transform: 'scaleY(1.3)', overflow: 'visible', paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
               <BlurText
                 text="Aiman"
                 delay={800}
@@ -52,7 +52,7 @@ export default function HeroSection() {
                 className="justify-center"
               />
             </span>
-            <span className="block uppercase" style={{ fontSize: 'clamp(3rem, 14vw, 14rem)', color: '#FF6B9D', WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent)', maskImage: 'linear-gradient(to bottom, black 40%, transparent)', transform: 'scaleY(1.3)' }}>
+            <span className="block uppercase" style={{ fontSize: 'clamp(3rem, 14vw, 14rem)', color: '#FF6B9D', WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent)', maskImage: 'linear-gradient(to bottom, black 40%, transparent)', transform: 'scaleY(1.3)', overflow: 'visible', paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
               <BlurText
                 text="Shahid"
                 delay={0}

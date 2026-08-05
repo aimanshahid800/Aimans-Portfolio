@@ -285,11 +285,7 @@ export function CinematicFooter() {
         style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
       >
         {/* Fixed Footer underneath everything */}
-        <footer className="fixed bottom-0 left-0 flex h-screen w-full flex-col justify-between overflow-hidden bg-[#0a0a0f] text-white aimitech-footer">
-          
-          {/* Ambient Light & Grid Background - Pink Theme */}
-          <div className="footer-aurora absolute left-1/2 top-1/2 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 animate-footer-breathe rounded-[50%] blur-[80px] pointer-events-none z-0" />
-          <div className="footer-bg-grid absolute inset-0 z-0 pointer-events-none" />
+        <footer className="fixed bottom-0 left-0 flex h-screen w-full flex-col justify-between overflow-hidden bg-transparent text-white aimitech-footer">
 
           {/* Giant background text - aimiTECH */}
           <div
@@ -364,25 +360,7 @@ export function CinematicFooter() {
                   LinkedIn
                 </MagneticButton>
                 
-                <MagneticButton
-                  as="a"
-                  href="https://twitter.com/aimanshahid800" // Replace with actual link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-glass-pill px-6 py-3 rounded-full text-white/70 font-medium text-xs md:text-sm hover:text-white"
-                >
-                  Twitter
-                </MagneticButton>
 
-                <MagneticButton
-                  as="a"
-                  href="https://discord.gg/aimanshahid800" // Replace with actual link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-glass-pill px-6 py-3 rounded-full text-white/70 font-medium text-xs md:text-sm hover:text-white"
-                >
-                  Discord
-                </MagneticButton>
               </div>
             </div>
           </div>

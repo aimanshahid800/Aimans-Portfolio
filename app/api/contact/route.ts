@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       </div>
     `
 
-    // Send via Resend HTTP API (no Node module needed)
+    // Send via Resend HTTP API
     const resp = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {

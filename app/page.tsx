@@ -14,13 +14,13 @@ import SoftAurora from "@/components/SoftAurora"
 export default function Home() {
   return (
     <>
-      <main className="min-h-screen bg-[#0a0a0f] relative overflow-hidden">
+      <main className="min-h-screen bg-[#0a0a0f] relative">
         {/* SoftAurora Background */}
         <div className="fixed inset-0 z-0">
           <SoftAurora
             speed={0.6}
             scale={1.5}
-            brightness={1}
+            brightness={0.55}
             color1="#f7f7f7"
             color2="#e100ff"
             noiseFrequency={2.5}
