@@ -1,103 +1,80 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { Brain, Server, Palette, Wrench } from "lucide-react"
+import LogoLoop from "./LogoLoop"
 
-const skillCategories = [
+const logoCategories = [
   {
     title: "AI & Agentic",
     icon: Brain,
     color: "#ff2d78",
-    skills: [
-      { name: "Agentic AI", percentage: 85 },
-      { name: "Multi-Agent Orchestration", percentage: 80 },
-      { name: "Prompt Engineering", percentage: 82 },
-      { name: "RAG Pipelines", percentage: 78 },
-      { name: "OpenAI Agents SDK", percentage: 80 },
-      { name: "MCP", percentage: 75 },
-    ],
+    folder: "ai-agentic",
+    direction: "left" as const,
   },
   {
     title: "Backend",
     icon: Server,
     color: "#ff6b9d",
-    skills: [
-      { name: "Python", percentage: 82 },
-      { name: "FastAPI", percentage: 78 },
-      { name: "PHP", percentage: 72 },
-      { name: "MySQL", percentage: 75 },
-      { name: "Qdrant", percentage: 45 },
-    ],
+    folder: "Backend",
+    direction: "right" as const,
   },
   {
     title: "Frontend",
     icon: Palette,
     color: "#ff9ec6",
-    skills: [
-      { name: "HTML/CSS", percentage: 85 },
-      { name: "JavaScript", percentage: 78 },
-      { name: "TypeScript", percentage: 72 },
-      { name: "Tailwind CSS", percentage: 75 },
-      { name: "Next.js", percentage: 65 },
-    ],
+    folder: "Frontend",
+    direction: "left" as const,
   },
   {
     title: "Tools & DevOps",
     icon: Wrench,
     color: "#ffb3d1",
-    skills: [
-      { name: "GitHub", percentage: 80 },
-      { name: "VS Code", percentage: 90 },
-      { name: "Vercel", percentage: 88 },
-      { name: "XAMPP", percentage: 72 },
-      { name: "Chainlit", percentage: 70 },
-      { name: "Claude AI", percentage: 90 },
-    ],
+    folder: "Tools",
+    direction: "right" as const,
   },
 ]
 
-interface AnimatedBarProps {
-  percentage: number
-  isVisible: boolean
-  color: string
-}
+// Helper function to get logos from a folder
+const getLogosFromFolder = (folderName: string) => {
+  // These are the actual logo files found in each folder
+  const logoFiles: Record<string, string[]> = {
+    "ai-agentic": [
+      "/logos/ai-agentic/AwqCmewjdS8905bp.png",
+      "/logos/ai-agentic/mcp.png",
+      "/logos/ai-agentic/rag.png",
+      "/logos/ai-agentic/images.png",
+    ],
+    "Backend": [
+      "/logos/Backend/supabase_icon-logo_brandlogos.net_nmv8t-512x521.png",
+      "/logos/Backend/1_du7p50wS_fIsaC_lR18qsg.png",
+      "/logos/Backend/R.png",
+      "/logos/Backend/rag.png",
+      "/logos/Backend/images.png",
+    ],
+    "Frontend": [
+      "/logos/Frontend/react-1-logo-png-transparent.png",
+      "/logos/Frontend/png-transparent-next-js-hd-logo.png",
+      "/logos/Frontend/tailwind-css-logo-png_seeklogo-354675.png",
+      "/logos/Frontend/html5-logo-vector-free-download-11574222422da5narngo7.png",
+      "/logos/Frontend/JavaScript-Logo.png",
+      "/logos/Frontend/CSS-Logo-2011.png",
+    ],
+    "Tools": [
+      "/logos/Tools/Github-Logo.png",
+      "/logos/Tools/visual-studio-code-logo-1c79.png",
+      "/logos/Tools/images.png",
+      "/logos/Tools/google_antigravity-logo_brandlogos.net_qu4jc.png",
+    ],
+  }
 
-const AnimatedProgressBar = ({ percentage, isVisible, color }: AnimatedBarProps) => {
-  return (
-    <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-      <div
-        className="h-full rounded-full transition-all duration-1000 ease-out"
-        style={{
-          width: isVisible ? `${percentage}%` : "0%",
-          background: `linear-gradient(90deg, #ff2d78, ${color})`,
-        }}
-      />
-    </div>
-  )
+  const files = logoFiles[folderName] || []
+  return files.map((src) => ({
+    src,
+    alt: src.split("/").pop()?.replace(/\.png$/i, "") || "logo",
+  }))
 }
 
 export default function SkillsSection() {
-  const [visibleCategories, setVisibleCategories] = useState<number[]>([])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const cardId = Number.parseInt(entry.target.getAttribute("data-category") || "0")
-            setVisibleCategories((prev) => [...new Set([...prev, cardId])])
-          }
-        })
-      },
-      { threshold: 0.15 },
-    )
-
-    const cardElements = document.querySelectorAll("[data-category]")
-    cardElements.forEach((el) => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section id="skills" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-7xl mx-auto relative z-10">
@@ -105,7 +82,7 @@ export default function SkillsSection() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading mb-4 text-white">
             Skills &{" "}
             <span className="bg-gradient-to-r from-[#ff2d78] via-[#ff6b9d] to-[#ff9ec6] bg-clip-text text-transparent">
-              Expertise
+              Tech Stack
             </span>
           </h2>
           <p className="text-lg sm:text-xl text-white/70 leading-relaxed max-w-3xl mx-auto">
@@ -114,17 +91,14 @@ export default function SkillsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
-          {skillCategories.map((category, categoryIndex) => {
+          {logoCategories.map((category, categoryIndex) => {
             const IconComponent = category.icon
-            const isVisible = visibleCategories.includes(categoryIndex)
+            const logos = getLogosFromFolder(category.folder)
 
             return (
               <div
                 key={categoryIndex}
-                data-category={categoryIndex}
-                className={`${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                } transition-all duration-700 ease-out`}
+                className="opacity-100 translate-y-0 transition-all duration-700 ease-out"
                 style={{ transitionDelay: `${categoryIndex * 150}ms` }}
               >
                 <div className="bg-black/30 backdrop-blur-sm border border-[#ff2d78]/15 rounded-2xl p-6 sm:p-8 hover:bg-black/50 hover:border-[#ff6b9d]/30 transition-all duration-300 group h-full">
@@ -139,20 +113,18 @@ export default function SkillsSection() {
                     </h3>
                   </div>
 
-                  <div className="space-y-5">
-                    {category.skills.map((skill, skillIndex) => (
-                      <div key={skillIndex} className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm sm:text-base font-medium text-white/90">
-                            {skill.name}
-                          </span>
-                          <span className="text-xs sm:text-sm font-semibold bg-gradient-to-r from-[#ff2d78] to-[#ff6b9d] bg-clip-text text-transparent">
-                            {skill.percentage}%
-                          </span>
-                        </div>
-                        <AnimatedProgressBar percentage={skill.percentage} isVisible={isVisible} color={category.color} />
-                      </div>
-                    ))}
+                  <div className="h-[120px] overflow-hidden">
+                    <LogoLoop
+                      logos={logos}
+                      speed={80}
+                      direction={category.direction}
+                      logoHeight={40}
+                      gap={32}
+                      fadeOut={true}
+                      fadeOutColor="#0a0a0f"
+                      scaleOnHover={true}
+                      ariaLabel={`${category.title} logos`}
+                    />
                   </div>
                 </div>
               </div>
