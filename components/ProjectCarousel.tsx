@@ -14,6 +14,12 @@ interface Project {
   techStack: string[];
   repoUrl?: string;
   liveUrl?: string;
+  accentColor: string;
+  secondaryColor: string;
+  tagBg: string;
+  tagText: string;
+  buttonGradient: string;
+  borderColor: string;
 }
 
 const projects: Project[] = [
@@ -26,6 +32,12 @@ const projects: Project[] = [
     techStack: ["PHP", "MySQL", "Git"],
     repoUrl: "#",
     liveUrl: "#",
+    accentColor: "#ff2d78",
+    secondaryColor: "#ff6b9d",
+    tagBg: "rgba(255, 107, 157, 0.15)",
+    tagText: "#ff9ec6",
+    buttonGradient: "linear-gradient(135deg, #ff2d78, #ff6b9d)",
+    borderColor: "rgba(255, 107, 157, 0.2)",
   },
   {
     title: "Nyra",
@@ -36,6 +48,12 @@ const projects: Project[] = [
     techStack: ["FastAPI", "Qdrant", "Chainlit"],
     repoUrl: "#",
     liveUrl: "#",
+    accentColor: "#10b981",
+    secondaryColor: "#34d399",
+    tagBg: "rgba(16, 185, 129, 0.15)",
+    tagText: "#6ee7b7",
+    buttonGradient: "linear-gradient(135deg, #059669, #10b981)",
+    borderColor: "rgba(16, 185, 129, 0.3)",
   },
   {
     title: "Mood-Sync",
@@ -45,6 +63,13 @@ const projects: Project[] = [
     imageUrl: "/projects/placeholder-3.png",
     techStack: ["Python", "FastAPI", "React"],
     repoUrl: "#",
+    liveUrl: "#",
+    accentColor: "#55a1f7ff",
+    secondaryColor: "#fcfa84ff",
+    tagBg: "rgba(247, 244, 85, 0.15)",
+    tagText: "#feffd5ff",
+    buttonGradient: "linear-gradient(135deg, #acb61bff, #bebc44ff)",
+    borderColor: "rgba(236, 247, 85, 0.3)",
   },
 ];
 
@@ -89,11 +114,12 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
         </div>
 
         {/* Glassmorphic Card */}
-        <div className="rounded-3xl shadow-2xl p-8 ml-[-80px] z-10 max-w-xl flex-1"
+        <div className="rounded-3xl shadow-2xl p-8 ml-[-80px] z-10 max-w-xl flex-1 transition-colors duration-500"
           style={{
-            background: "rgba(0, 0, 0, 0.4)",
+            background: "rgba(0, 0, 0, 0.5)",
             backdropFilter: "blur(20px)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
+            border: `1px solid ${currentProject.borderColor}`,
+            boxShadow: `0 10px 40px -10px ${currentProject.borderColor}`,
           }}
         >
           <AnimatePresence mode="wait">
@@ -106,8 +132,8 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
             >
               {/* Category */}
               <p
-                className="text-xs font-semibold tracking-widest uppercase mb-3"
-                style={{ color: "#ff6b9d" }}
+                className="text-xs font-semibold tracking-widest uppercase mb-3 transition-colors duration-300"
+                style={{ color: currentProject.secondaryColor }}
               >
                 {currentProject.category}
               </p>
@@ -127,11 +153,11 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
                 {currentProject.techStack.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1 text-xs font-medium rounded-full"
+                    className="px-3 py-1 text-xs font-medium rounded-full transition-colors duration-300"
                     style={{
-                      background: "rgba(255, 107, 157, 0.15)",
-                      color: "#ff9ec6",
-                      border: "1px solid rgba(255, 107, 157, 0.2)",
+                      background: currentProject.tagBg,
+                      color: currentProject.tagText,
+                      border: `1px solid ${currentProject.borderColor}`,
                     }}
                   >
                     {tech}
@@ -148,7 +174,8 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-sm font-medium transition-all hover:scale-105"
                     style={{
-                      background: "linear-gradient(135deg, #ff2d78, #ff6b9d)",
+                      background: currentProject.buttonGradient,
+                      boxShadow: `0 4px 15px ${currentProject.borderColor}`,
                     }}
                   >
                     <Github className="w-4 h-4" />
@@ -211,7 +238,7 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
               {/* Category */}
               <p
                 className="text-xs font-semibold tracking-widest uppercase mb-2"
-                style={{ color: "#ff6b9d" }}
+                style={{ color: currentProject.secondaryColor }}
               >
                 {currentProject.category}
               </p>
@@ -233,9 +260,9 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
                     key={tech}
                     className="px-3 py-1 text-xs font-medium rounded-full"
                     style={{
-                      background: "rgba(255, 107, 157, 0.15)",
-                      color: "#ff9ec6",
-                      border: "1px solid rgba(255, 107, 157, 0.2)",
+                      background: currentProject.tagBg,
+                      color: currentProject.tagText,
+                      border: `1px solid ${currentProject.borderColor}`,
                     }}
                   >
                     {tech}
@@ -252,7 +279,7 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm font-medium transition-all"
                     style={{
-                      background: "linear-gradient(135deg, #ff2d78, #ff6b9d)",
+                      background: currentProject.buttonGradient,
                     }}
                   >
                     <Github className="w-4 h-4" />
@@ -295,14 +322,15 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
         </button>
 
         <div className="flex gap-2">
-          {projects.map((_, projectIndex) => (
+          {projects.map((proj, projectIndex) => (
             <button
               key={projectIndex}
               onClick={() => setCurrentIndex(projectIndex)}
-              className={cn(
-                "w-3 h-3 rounded-full transition-colors cursor-pointer",
-                projectIndex === currentIndex ? "bg-[#ff6b9d]" : "bg-white/30"
-              )}
+              className="w-3 h-3 rounded-full transition-all cursor-pointer"
+              style={{
+                backgroundColor: projectIndex === currentIndex ? proj.secondaryColor : "rgba(255, 255, 255, 0.3)",
+                transform: projectIndex === currentIndex ? "scale(1.2)" : "scale(1)",
+              }}
               aria-label={`Go to project ${projectIndex + 1}`}
             />
           ))}

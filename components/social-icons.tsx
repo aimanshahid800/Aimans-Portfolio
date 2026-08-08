@@ -8,26 +8,31 @@ const socialLinks = [
     name: "GitHub",
     href: "https://github.com/aimanshahid800",
     icon: Github,
+    hoverStyle: { color: "#000000", backgroundColor: "rgba(255, 255, 255, 0.21)" },
   },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/aiman-shahid-b49035320",
     icon: Linkedin,
+    hoverStyle: { color: "#0A66C2", backgroundColor: "rgba(255, 255, 255, 0.21)" },
   },
   {
     name: "Email",
     href: "mailto:aimanshahid800@gmail.com",
     icon: Mail,
+    hoverStyle: { color: "#ea4335", backgroundColor: "rgba(255, 255, 255, 0.21)" },
   },
   {
     name: "Resume",
     href: "/resume",
     icon: FileText,
+    hoverStyle: { color: "#7d08eaff", backgroundColor: "rgba(255, 255, 255, 0.21)" },
   },
 ]
 
 export default function SocialIcons() {
   const [visible, setVisible] = useState(true)
+  const [hoveredName, setHoveredName] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +50,7 @@ export default function SocialIcons() {
     <nav className={`social-icons ${visible ? "" : "social-icons-hidden"}`}>
       {socialLinks.map((link) => {
         const IconComponent = link.icon
+        const isHovered = hoveredName === link.name
         return (
           <a
             key={link.name}
@@ -53,8 +59,11 @@ export default function SocialIcons() {
             rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
             className="social-icons-item"
             title={link.name}
+            onMouseEnter={() => setHoveredName(link.name)}
+            onMouseLeave={() => setHoveredName(null)}
+            style={isHovered ? link.hoverStyle : undefined}
           >
-            <IconComponent className="w-5 h-5" />
+            <IconComponent className="w-5 h-5 transition-colors duration-200" />
           </a>
         )
       })}

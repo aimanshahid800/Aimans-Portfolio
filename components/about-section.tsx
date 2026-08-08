@@ -74,31 +74,32 @@ export default function AboutSection() {
         <div ref={sectionRef} className="relative">
           {/* Glowing line track */}
           <div
-            className="absolute left-1/2 transform -translate-x-1/2 w-[2px] h-full"
-            style={{ background: "rgba(255, 107, 157, 0.08)" }}
+            className="absolute left-1/2 transform -translate-x-1/2 w-[4px] h-full"
+            style={{ background: "rgba(255, 107, 157, 0.15)" }}
           />
 
           {/* Animated glowing line */}
           <motion.div
-            className="absolute left-1/2 transform -translate-x-1/2 w-[2px] origin-top"
+            className="absolute left-1/2 transform -translate-x-1/2 w-[4px] origin-top"
             style={{
               height: "100%",
               top: 0,
               scaleY: lineHeight,
               background: "linear-gradient(to bottom, #ff2d78, #ff6b9d, #ff9ec6)",
+              boxShadow: "0 0 10px rgba(255, 45, 120, 0.8)",
             }}
           />
 
           {/* Glow duplicate layer */}
           <motion.div
-            className="absolute left-1/2 transform -translate-x-1/2 w-[6px] origin-top pointer-events-none"
+            className="absolute left-1/2 transform -translate-x-1/2 w-[12px] origin-top pointer-events-none"
             style={{
               height: "100%",
               top: 0,
               scaleY: lineHeight,
               background: "linear-gradient(to bottom, #ff2d78, #ff6b9d, #ff9ec6)",
-              filter: "blur(6px)",
-              opacity: 0.5,
+              filter: "blur(8px)",
+              opacity: 0.7,
             }}
           />
 

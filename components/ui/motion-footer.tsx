@@ -108,13 +108,13 @@ const STYLES = `
 
 /* Giant Background Text Masking */
 .footer-giant-bg-text {
-  font-size: 26vw;
-  line-height: 0.75;
+  font-size: clamp(3.5rem, 19vw, 18rem);
+  line-height: 0.8;
   font-weight: 900;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
   color: transparent;
-  -webkit-text-stroke: 1px color-mix(in srgb, var(--foreground) 5%, transparent);
-  background: linear-gradient(180deg, color-mix(in srgb, var(--foreground) 10%, transparent) 0%, transparent 60%);
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--foreground) 8%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--foreground) 12%, transparent) 0%, transparent 65%);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -287,12 +287,12 @@ export function CinematicFooter() {
         {/* Fixed Footer underneath everything */}
         <footer className="fixed bottom-0 left-0 flex h-screen w-full flex-col justify-between overflow-hidden bg-transparent text-white aimitech-footer">
 
-          {/* Giant background text - aimiTECH */}
+          {/* Giant background text - aimTECH */}
           <div
             ref={giantTextRef}
-            className="footer-giant-bg-text absolute -bottom-[5vh] left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none select-none"
+            className="footer-giant-bg-text absolute -bottom-[4vh] left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none select-none max-w-full overflow-hidden text-center"
           >
-            aimiTECH
+            aimTECH
           </div>
 
           {/* 1. Diagonal Marquee (Top of footer) */}
@@ -342,25 +342,23 @@ export function CinematicFooter() {
               <div className="flex flex-wrap justify-center gap-3 md:gap-6 w-full mt-2">
                 <MagneticButton
                   as="a"
-                  href="https://github.com/aimanshahid800" // Replace with actual link
+                  href="https://github.com/aimanshahid800"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="footer-glass-pill px-6 py-3 rounded-full text-white/70 font-medium text-xs md:text-sm hover:text-white"
+                  className="footer-glass-pill px-6 py-3 rounded-full text-white font-semibold text-xs md:text-sm"
                 >
                   GitHub
                 </MagneticButton>
                 
                 <MagneticButton
                   as="a"
-                  href="https://linkedin.com/in/aimanshahid800" // Replace with actual link
+                  href="https://www.linkedin.com/in/aiman-shahid-b49035320"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="footer-glass-pill px-6 py-3 rounded-full text-white/70 font-medium text-xs md:text-sm hover:text-white"
+                  className="footer-glass-pill px-6 py-3 rounded-full text-white font-semibold text-xs md:text-sm"
                 >
                   LinkedIn
                 </MagneticButton>
-                
-
               </div>
             </div>
           </div>
@@ -370,7 +368,7 @@ export function CinematicFooter() {
             
             {/* Copyright */}
             <div className="text-white/50 text-[10px] md:text-xs font-semibold tracking-widest uppercase order-2 md:order-1">
-              © 2024-2026 aimiTECH. All rights reserved.
+              © 2024-2026 aimTECH. All rights reserved.
             </div>
 
             {/* "Crafted with Love" Badge */}
@@ -378,7 +376,7 @@ export function CinematicFooter() {
               <span className="text-white/50 text-[10px] md:text-xs font-bold uppercase tracking-widest">Crafted with</span>
               <span className="animate-footer-heartbeat text-sm md:text-base text-[#ff4d4d]">❤</span>
               <span className="text-white/50 text-[10px] md:text-xs font-bold uppercase tracking-widest">by</span>
-              <span className="text-white font-black text-xs md:text-sm tracking-normal ml-1">aimiTECH</span>
+              <span className="text-white font-black text-xs md:text-sm tracking-normal ml-1">aimTECH</span>
             </div>
 
             {/* Back to top */}
