@@ -359,6 +359,16 @@ export function CinematicFooter() {
                 >
                   LinkedIn
                 </MagneticButton>
+                
+                <MagneticButton
+                  as="a"
+                  href="https://calendly.com/aimanshahid800/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-glass-pill px-6 py-3 rounded-full text-white font-semibold text-xs md:text-sm"
+                >
+                  Book a Call
+                </MagneticButton>
               </div>
             </div>
           </div>
