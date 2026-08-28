@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
+import ContactForm from "@/components/contact-form";
 
 // Register ScrollTrigger safely for React
 if (typeof window !== "undefined") {
@@ -313,63 +314,62 @@ export function CinematicFooter() {
             </h2>
 
             {/* Interactive Contact Cards */}
-            <div ref={linksRef} className="flex flex-col items-center gap-6 w-full">
+            {/* Interactive Contact Sections Grid */}
+            <div ref={linksRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full max-w-5xl mx-auto mt-6">
               
-              {/* Contact Cards Grid */}
-              <div className="flex flex-wrap justify-center gap-4 w-full">
-                {/* Email Card */}
-                <a
-                  href="mailto:aimanshahid800@gmail.com"
-                  className="footer-glass-pill px-10 py-5 rounded-full text-white font-bold text-sm md:text-base flex items-center gap-3 group"
-                >
-                  <svg className="w-6 h-6 text-[#ff2d78] group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  Email Me
-                </a>
+              {/* Left Column: Send Message Box */}
+              <div className="footer-glass-pill w-full px-6 py-8 md:px-10 md:py-10 rounded-3xl order-2 md:order-1">
+                <p className="text-white/60 text-xs md:text-sm font-semibold tracking-widest uppercase text-center mb-6">
+                  Send Me A Message
+                </p>
+                <ContactForm />
+              </div>
 
+              {/* Right Column: Info & Socials */}
+              <div className="flex flex-col gap-6 md:gap-8 w-full items-center md:items-start md:pl-6 order-1 md:order-2">
                 {/* Location Card */}
-                <div className="footer-glass-pill px-10 py-5 rounded-full text-white font-bold text-sm md:text-base flex items-center gap-3">
+                <div className="footer-glass-pill px-10 py-5 rounded-full text-white font-bold text-sm md:text-base flex items-center gap-3 w-fit">
                   <svg className="w-6 h-6 text-[#ff6b9d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   Lahore, Pakistan
                 </div>
+
+                {/* Social Links */}
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 w-full">
+                  <MagneticButton
+                    as="a"
+                    href="https://github.com/aimanshahid800"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-glass-pill px-6 py-3 rounded-full text-white font-semibold text-xs md:text-sm"
+                  >
+                    GitHub
+                  </MagneticButton>
+                  
+                  <MagneticButton
+                    as="a"
+                    href="https://www.linkedin.com/in/aiman-shahid-b49035320"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-glass-pill px-6 py-3 rounded-full text-white font-semibold text-xs md:text-sm"
+                  >
+                    LinkedIn
+                  </MagneticButton>
+                  
+                  <MagneticButton
+                    as="a"
+                    href="https://calendly.com/aimanshahid800/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-glass-pill px-6 py-3 rounded-full text-white font-semibold text-xs md:text-sm"
+                  >
+                    Book a Call
+                  </MagneticButton>
+                </div>
               </div>
 
-              {/* Social Links */}
-              <div className="flex flex-wrap justify-center gap-3 md:gap-6 w-full mt-2">
-                <MagneticButton
-                  as="a"
-                  href="https://github.com/aimanshahid800"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-glass-pill px-6 py-3 rounded-full text-white font-semibold text-xs md:text-sm"
-                >
-                  GitHub
-                </MagneticButton>
-                
-                <MagneticButton
-                  as="a"
-                  href="https://www.linkedin.com/in/aiman-shahid-b49035320"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-glass-pill px-6 py-3 rounded-full text-white font-semibold text-xs md:text-sm"
-                >
-                  LinkedIn
-                </MagneticButton>
-                
-                <MagneticButton
-                  as="a"
-                  href="https://calendly.com/aimanshahid800/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-glass-pill px-6 py-3 rounded-full text-white font-semibold text-xs md:text-sm"
-                >
-                  Book a Call
-                </MagneticButton>
-              </div>
             </div>
           </div>
 

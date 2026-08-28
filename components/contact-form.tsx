@@ -82,7 +82,7 @@ export default function ContactForm() {
             onChange={(e) => setName(e.target.value)}
             aria-invalid={!!error && !name.trim()}
             required
-            className="bg-black/30 border-[#ff2d78]/20 focus:border-[#ff6b9d] focus:ring-[#ff6b9d]/50 text-white placeholder:text-white/40"
+            className="bg-black border-[#ff2d78]/40 focus:border-[#ff6b9d] focus:ring-[#ff6b9d]/60 focus:ring-2 focus:shadow-[0_0_15px_rgba(255,45,120,0.4)] text-white placeholder:text-white/40"
           />
         </div>
         <div className="space-y-2">
@@ -98,7 +98,7 @@ export default function ContactForm() {
             onChange={(e) => setEmail(e.target.value)}
             aria-invalid={!!error && (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))}
             required
-            className="bg-black/30 border-[#ff2d78]/20 focus:border-[#ff6b9d] focus:ring-[#ff6b9d]/50 text-white placeholder:text-white/40"
+            className="bg-black border-[#ff2d78]/40 focus:border-[#ff6b9d] focus:ring-[#ff6b9d]/60 focus:ring-2 focus:shadow-[0_0_15px_rgba(255,45,120,0.4)] text-white placeholder:text-white/40"
           />
         </div>
       </div>
@@ -116,7 +116,7 @@ export default function ContactForm() {
           rows={5}
           aria-invalid={!!error && !message.trim()}
           required
-          className="bg-black/30 border-[#ff2d78]/20 focus:border-[#ff6b9d] focus:ring-[#ff6b9d]/50 text-white placeholder:text-white/40"
+          className="bg-black border-[#ff2d78]/40 focus:border-[#ff6b9d] focus:ring-[#ff6b9d]/60 focus:ring-2 focus:shadow-[0_0_15px_rgba(255,45,120,0.4)] text-white placeholder:text-white/40"
         />
       </div>
 
