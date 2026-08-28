@@ -8,9 +8,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Message is required" }, { status: 400 });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.PORTFOLIO_CHATBOT_KEY;
     if (!apiKey) {
-      console.error("GEMINI_API_KEY is not configured");
+      console.error("PORTFOLIO_CHATBOT_KEY is not configured");
       return NextResponse.json({ error: "API configuration error" }, { status: 500 });
     }
 
