@@ -76,7 +76,6 @@ Rules:
         parts: [{ text: systemInstructionText }],
       },
       generationConfig: {
-        thinkingConfig: { thinkingBudget: 0 },
         maxOutputTokens: 300,
       },
     };
