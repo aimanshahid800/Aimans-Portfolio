@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const GEMINI_MODEL = "gemini-2.5-flash-lite";
+const GEMINI_MODEL = "gemini-3.5-flash-lite";
 const TIMEOUT_MS = 10_000; // 10 seconds
 const RETRY_DELAY_MS = 1_000; // 1 second
 
