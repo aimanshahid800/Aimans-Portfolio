@@ -1,5 +1,29 @@
 import { NextResponse } from "next/server";
 
+const GEMINI_MODEL = "gemini-2.5-flash-lite";
+const TIMEOUT_MS = 10_000; // 10 seconds
+const RETRY_DELAY_MS = 1_000; // 1 second
+
+async function callGemini(
+  apiKey: string,
+  body: object,
+  signal: AbortSignal
+): Promise<Response> {
+  return fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      signal,
+    }
+  );
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function POST(req: Request) {
   try {
     const { message, history } = await req.json();
@@ -38,38 +62,93 @@ Rules:
     const contents = [
       ...(Array.isArray(history) ? history : []).map((h: any) => ({
         role: h.role === "user" ? "user" : "model",
-        parts: [{ text: h.text }]
+        parts: [{ text: h.text }],
       })),
       {
         role: "user",
-        parts: [{ text: message }]
-      }
+        parts: [{ text: message }],
+      },
     ];
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contents,
-          systemInstruction: {
-            parts: [{ text: systemInstructionText }]
-          }
-        }),
-      }
-    );
+    const geminiBody = {
+      contents,
+      systemInstruction: {
+        parts: [{ text: systemInstructionText }],
+      },
+      generationConfig: {
+        thinkingConfig: { thinkingBudget: 0 },
+        maxOutputTokens: 300,
+      },
+    };
 
-    if (!response.ok) {
+    // Retry loop: try up to 2 times (1 attempt + 1 retry) on 503 / 429
+    let response: Response | null = null;
+
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+      try {
+        response = await callGemini(apiKey, geminiBody, controller.signal);
+        clearTimeout(timeoutId);
+      } catch (err: any) {
+        clearTimeout(timeoutId);
+
+        // AbortController fired — request timed out
+        if (err.name === "AbortError") {
+          console.error(`Gemini request timed out on attempt ${attempt + 1}`);
+          return NextResponse.json(
+            { error: "I'm a bit busy right now, please try again in a moment." },
+            { status: 503 }
+          );
+        }
+        throw err; // unexpected network error — rethrow
+      }
+
+      // Success — exit retry loop
+      if (response.ok) break;
+
+      // Retryable errors: 503 (overloaded) or 429 (rate limited)
+      if (response.status === 503 || response.status === 429) {
+        const errorText = await response.text();
+        console.warn(
+          `Gemini returned ${response.status} on attempt ${attempt + 1}:`,
+          errorText
+        );
+
+        if (attempt < 1) {
+          // Wait 1 second then retry
+          await sleep(RETRY_DELAY_MS);
+          continue;
+        }
+
+        // Both attempts failed
+        return NextResponse.json(
+          { error: "I'm a bit busy right now, please try again in a moment." },
+          { status: 503 }
+        );
+      }
+
+      // Non-retryable error
       const errorText = await response.text();
       console.error("Gemini API error:", errorText);
-      return NextResponse.json({ error: "Failed to communicate with Gemini API" }, { status: response.status });
+      return NextResponse.json(
+        { error: "Failed to communicate with Gemini API" },
+        { status: response.status }
+      );
+    }
+
+    if (!response || !response.ok) {
+      return NextResponse.json(
+        { error: "I'm a bit busy right now, please try again in a moment." },
+        { status: 503 }
+      );
     }
 
     const data = await response.json();
-    const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
+    const replyText =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "Sorry, I couldn't generate a response.";
 
     return NextResponse.json({ reply: replyText });
   } catch (error) {
