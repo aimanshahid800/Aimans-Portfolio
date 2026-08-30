@@ -1,7 +1,4 @@
 "use client"
-import SidebarNav from "@/components/sidebar-nav"
-import SocialIcons from "@/components/social-icons"
-import MobileMenu from "@/components/mobile-menu"
 import HeroSection from "@/components/hero-section"
 import AboutSection from "@/components/about-section"
 import SkillsSection from "@/components/skills-section"
@@ -37,9 +34,6 @@ export default function Home() {
 
         {/* Content */}
         <div className="relative z-10">
-          <SidebarNav />
-          <SocialIcons />
-          <MobileMenu />
           <HeroSection />
           <AboutSection />
           <SkillsSection />

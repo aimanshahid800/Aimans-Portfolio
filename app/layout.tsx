@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Poppins, Inter } from "next/font/google"
 import "./globals.css"
 import ChatWidget from "@/components/chat-widget"
+import SterlingGateKineticNavigation from "@/components/ui/sterling-gate-kinetic-navigation"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -33,6 +34,8 @@ export default function RootLayout({
     <html lang="en" className={`${poppins.variable} ${inter.variable}`} suppressHydrationWarning>
       <body className="font-body antialiased">
         {children}
+        {/* Mobile GSAP menu mounted at root so toggle is visible on mobile even without header */}
+        <SterlingGateKineticNavigation />
         <ChatWidget />
       </body>
     </html>
