@@ -182,7 +182,7 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
                     View Code
                   </Link>
                 )}
-                {currentProject.liveUrl && (
+                {/*{currentProject.liveUrl && (
                   <Link
                     href={currentProject.liveUrl}
                     target="_blank"
@@ -196,7 +196,7 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
                     <ExternalLink className="w-4 h-4" />
                     Live Demo
                   </Link>
-                )}
+                )}*/}
               </div>
             </motion.div>
           </AnimatePresence>
@@ -286,7 +286,7 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
                     View Code
                   </Link>
                 )}
-                {currentProject.liveUrl && (
+                {/*{currentProject.liveUrl && (
                   <Link
                     href={currentProject.liveUrl}
                     target="_blank"
@@ -300,7 +300,7 @@ export function ProjectCarousel({ className }: ProjectCarouselProps) {
                     <ExternalLink className="w-4 h-4" />
                     Live Demo
                   </Link>
-                )}
+                )}*/}
               </div>
             </motion.div>
           </AnimatePresence>

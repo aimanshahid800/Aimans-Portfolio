@@ -125,9 +125,9 @@ export default function ChatWidget() {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-            className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-[#ff2d78] to-[#ff6b9d] text-white shadow-[0_0_15px_rgba(255,45,120,0.5)] transition-transform duration-300 hover:scale-110 active:scale-95 cursor-pointer"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white shadow-lg shadow-black/30 backdrop-blur-sm transition-all duration-200 hover:bg-[#ff4bb8] hover:text-black active:scale-95 cursor-pointer md:h-14 md:w-14 md:border-0 md:bg-gradient-to-r md:from-[#ff2d78] md:to-[#ff6b9d] md:shadow-[0_0_15px_rgba(255,45,120,0.5)] md:backdrop-blur-none md:hover:bg-gradient-to-r md:hover:from-[#ff2d78] md:hover:to-[#ff6b9d] md:hover:text-black md:hover:scale-110 md:transition-transform md:duration-300"
           >
-            <MessageSquare className="h-6 w-6 text-black" />
+            <MessageSquare className="h-6 w-6 text-current md:text-black" />
           </button>
         )}
   

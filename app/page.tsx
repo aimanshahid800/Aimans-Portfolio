@@ -9,7 +9,7 @@ import EducationSection from "@/components/education-section"
 import CertificatesSection from "@/components/certificates-section"
 import ContactSection from "@/components/contact-section"
 import SoftAurora from "@/components/SoftAurora"
-import SterlingGateKineticNavigation from "@/components/ui/sterling-gate-kinetic-navigation"
+import SterlingGateKineticNavigation from "@/components/ui/menu"
 
 export default function Home() {
   return (

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ExternalLink, X } from "lucide-react"
 import { motion } from "motion/react"
 
@@ -64,14 +64,46 @@ const certificatesData: Certificate[] = [
   },
 ]
 
+const HEADER_HEIGHT = 120 // px - height of the sticky header block on mobile (includes gap before cards)
+const STICKY_STEP = 16 // px - extra offset added per card index
+
 export default function CertificatesSection() {
   const [selectedPdf, setSelectedPdf] = useState<string | null>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Each card's own sticky slot is HEADER_HEIGHT + index*STICKY_STEP.
+      // Once a card is "stuck", its top permanently equals that value.
+      // So the active card is the LAST one (highest index) that has
+      // already reached its stuck position.
+      let newActive = 0
+      for (let i = 0; i < cardRefs.current.length; i++) {
+        const el = cardRefs.current[i]
+        if (!el) continue
+        const threshold = HEADER_HEIGHT + i * STICKY_STEP
+        const top = el.getBoundingClientRect().top
+        if (top <= threshold + 2) {
+          newActive = i
+        }
+      }
+      setActiveIndex((prev) => (prev !== newActive ? newActive : prev))
+    }
+
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const activeIsPink = activeIndex % 2 === 0
+  const activeAccentHex = activeIsPink ? "#ff2d78" : "#a855f7"
 
   return (
     <section id="certificates" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-5xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        {/* Header - desktop only, mobile version is inside its own wrapper below */}
+        <div className="hidden md:block text-center mb-12 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading text-white mb-2">
             Certificates
           </h2>
@@ -80,14 +112,115 @@ export default function CertificatesSection() {
           </p>
         </div>
 
-        {/* Alternating Zigzag List */}
-        <div className="space-y-10 sm:space-y-14">
+        {/* ===================== MOBILE: Sticky Stack + Live Number ===================== */}
+        <div className="md:hidden relative">
+          {/* Sticky heading + description - stays pinned while cards scroll underneath */}
+          <div
+            className="sticky top-0 z-40 text-center px-4 pt-4 pb-3"
+            style={{ height: `${HEADER_HEIGHT}px` }}
+          >
+            <h2 className="text-2xl font-bold font-heading text-white mb-1">
+              Certificates
+            </h2>
+            <p className="text-xs text-[#9a99a5] max-w-2xl mx-auto">
+              Professional certifications and achievements in AI development
+            </p>
+          </div>
+
+          {/* Two columns: live number on the left, stacked cards on the right */}
+          <div className="flex items-start gap-2 px-2">
+            {/* Live-updating number column */}
+            <div
+              className="sticky w-16 flex-shrink-0 flex justify-center pointer-events-none"
+              style={{ top: `${HEADER_HEIGHT + 8}px` }}
+            >
+              <motion.span
+                key={activeIndex}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25 }}
+                className="text-6xl font-thin tracking-tighter select-none"
+                style={{
+                  WebkitTextStroke: `1.5px ${activeAccentHex}`,
+                  color: "transparent",
+                  filter: `drop-shadow(0 0 10px ${activeAccentHex})`,
+                  fontFamily: "'Teko', 'Inter', sans-serif",
+                }}
+              >
+                {String(activeIndex + 1).padStart(2, "0")}
+              </motion.span>
+            </div>
+
+            {/* Cards column */}
+            <div className="flex-1 min-w-0">
+              {certificatesData.map((cert, index) => {
+                const isPink = index % 2 === 0
+                const accentHex = isPink ? "#ff2d78" : "#a855f7"
+                const borderClass = isPink ? "border-[#ff2d78]/30" : "border-[#a855f7]/30"
+                return (
+                  <div
+                    key={cert.id}
+                    ref={(el) => {
+                      cardRefs.current[index] = el
+                    }}
+                    className="sticky pb-4"
+                    style={{
+                      top: `${HEADER_HEIGHT + index * STICKY_STEP}px`,
+                      zIndex: index + 1,
+                    }}
+                  >
+                    <div
+                      className={`bg-[#12121a]/95 backdrop-blur-md border-2 ${borderClass} rounded-[24px] p-4 flex flex-col justify-between min-h-[220px]`}
+                    >
+                      <div>
+                        <div className="flex items-start justify-end gap-3 mb-1.5">
+                          {cert.date && (
+                            <span className="text-[11px] px-3 py-1 rounded-full border border-white/20 text-white/70 whitespace-nowrap self-start">
+                              {cert.date}
+                            </span>
+                          )}
+                        </div>
+                        <h3 className="text-sm font-semibold text-white leading-snug mb-1.5">
+                          {cert.title}
+                        </h3>
+                        {cert.score && (
+                          <p className="text-sm font-semibold mb-2" style={{ color: accentHex }}>
+                            {cert.score} score
+                          </p>
+                        )}
+                        <p className="text-[11px] text-[#9a99a5] leading-relaxed mb-3">
+                          {cert.body}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => window.open(cert.pdfUrl, "_blank")}
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 text-[11px] font-semibold rounded-full transition-all duration-300 hover:scale-105 shadow-lg cursor-pointer"
+                        style={{
+                          background: isPink
+                            ? "linear-gradient(135deg, #ff2d78, #ff6b9d)"
+                            : "linear-gradient(135deg, #a855f7, #c084fc)",
+                          color: "#ffffff",
+                        }}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        View certificate
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
+              <div className="h-20" />
+            </div>
+          </div>
+        </div>
+
+        {/* ===================== DESKTOP: Alternating Zigzag List (unchanged) ===================== */}
+        <div className="hidden md:block space-y-10 sm:space-y-14">
           {certificatesData.map((cert, index) => {
             const isPink = index % 2 === 0
             const isLeftNumber = index % 2 === 0
             const numberStr = String(index + 1).padStart(2, "0")
 
-            // Colors setup
             const accentHex = isPink ? "#ff2d78" : "#a855f7"
             const borderClass = isPink
               ? "border-[#ff2d78]/30 hover:border-[#ff2d78]"

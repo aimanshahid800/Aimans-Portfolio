@@ -288,13 +288,16 @@ export function CinematicFooter() {
         {/* Fixed Footer underneath everything */}
         <footer className="fixed bottom-0 left-0 flex h-screen w-full flex-col justify-between overflow-hidden bg-transparent text-white aimitech-footer">
 
-          {/* Giant background text - aimTECH */}
+                    {/* Giant background text - aimTECH */}
           <div
             ref={giantTextRef}
-            className="footer-giant-bg-text absolute -bottom-[4vh] left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none select-none max-w-full overflow-hidden text-center"
+            className="footer-giant-bg-text absolute -bottom-[2vh] left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none select-none max-w-full overflow-hidden text-center"
           >
             aimTECH
           </div>
+
+          <div className="absolute inset-x-0 bottom-0 h-10 md:h-40 bg-gradient-to-t from-[#050507] via-[#050507]/25 to-transparent z-[1] pointer-events-none" />
+
 
           {/* 1. Diagonal Marquee (Top of footer) */}
           <div className="absolute top-12 left-0 w-full overflow-hidden border-y border-white/50 bg-[#0a0a0f]/60 backdrop-blur-md py-4 z-10 -rotate-2 scale-110 shadow-2xl">
@@ -304,29 +307,29 @@ export function CinematicFooter() {
             </div>
           </div>
 
-          {/* 2. Main Center Content - Contact */}
-          <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 mt-20 w-full max-w-5xl mx-auto">
+                    {/* 2. Main Center Content - Contact */}
+          <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 mt-8 md:mt-20 w-full max-w-5xl mx-auto">
             <h2
               ref={headingRef}
-              className="text-5xl md:text-8xl font-black footer-text-glow tracking-tighter mb-12 text-center"
+              className="text-5xl md:text-8xl font-black footer-text-glow tracking-tighter mb-4 md:mb-12 text-center"
             >
               Let's Connect
             </h2>
 
             {/* Interactive Contact Cards */}
             {/* Interactive Contact Sections Grid */}
-            <div ref={linksRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full max-w-5xl mx-auto mt-6">
+            <div ref={linksRef} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-center w-full max-w-5xl mx-auto mt-2 md:mt-6">
               
               {/* Left Column: Send Message Box */}
-              <div className="footer-glass-pill w-full px-6 py-8 md:px-10 md:py-10 rounded-3xl order-2 md:order-1">
-                <p className="text-white/60 text-xs md:text-sm font-semibold tracking-widest uppercase text-center mb-6">
+              <div className="footer-glass-pill w-full px-6 py-5 md:px-10 md:py-10 rounded-3xl order-2 md:order-1">
+                <p className="text-white/60 text-xs md:text-sm font-semibold tracking-widest uppercase text-center mb-3 md:mb-6">
                   Send Me A Message
                 </p>
                 <ContactForm />
               </div>
 
               {/* Right Column: Info & Socials */}
-              <div className="flex flex-col gap-6 md:gap-8 w-full items-center md:items-start md:pl-6 order-1 md:order-2">
+              <div className="flex flex-col gap-3 md:gap-8 w-full items-center md:items-start md:pl-6 order-1 md:order-2">
                 {/* Location Card */}
                 <div className="footer-glass-pill px-10 py-5 rounded-full text-white font-bold text-sm md:text-base flex items-center gap-3 w-fit">
                   <svg className="w-6 h-6 text-[#ff6b9d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

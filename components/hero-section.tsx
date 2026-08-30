@@ -9,11 +9,12 @@ import { Magnetic } from "./Magnetic"
 import { Github, Linkedin, Mail, FileText } from "lucide-react"
 
 // Social links for the mobile-only row below the profile picture
+// hoverStyle matches the desktop sidebar (components/social-icons.tsx) exactly
 const socialLinks = [
-  { name: "GitHub",   href: "https://github.com/aimanshahid800",                  icon: Github,   external: true  },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/aiman-shahid-b49035320", icon: Linkedin, external: true  },
-  { name: "Email",    href: "mailto:aimanshahid800@gmail.com",                    icon: Mail,     external: false },
-  { name: "Resume",   href: "/resume",                                             icon: FileText, external: false },
+  { name: "GitHub",   href: "https://github.com/aimanshahid800",                  icon: Github,   external: true,  hoverStyle: { color: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)" } },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/aiman-shahid-b49035320", icon: Linkedin, external: true,  hoverStyle: { color: "#0A66C2", backgroundColor: "rgba(0, 0, 0, 1)" } },
+  { name: "Email",    href: "mailto:aimanshahid800@gmail.com",                    icon: Mail,     external: false, hoverStyle: { color: "#ea4335", backgroundColor: "rgba(0, 0, 0, 1)" } },
+  { name: "Resume",   href: "/resume",                                             icon: FileText, external: false, hoverStyle: { color: "#7d08ea", backgroundColor: "rgba(0, 0, 0, 1)" } },
 ]
 
 export default function HeroSection() {
@@ -127,14 +128,30 @@ export default function HeroSection() {
                 aria-label={link.name}
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
-                className="
-                  flex items-center justify-center
+                className={`
+                  group flex items-center justify-center
                   w-11 h-11 rounded-xl
                   text-black bg-[#fd5f94]
                   transition-all duration-300
-                  hover:brightness-110 hover:scale-105 active:scale-95
+                  hover:scale-105 active:scale-95
                   shadow-[0_4px_14px_rgba(255,45,120,0.35)]
-                "
+                `}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = link.hoverStyle.color
+                  e.currentTarget.style.backgroundColor = link.hoverStyle.backgroundColor
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = ""
+                  e.currentTarget.style.backgroundColor = ""
+                }}
+                onTouchStart={(e) => {
+                  e.currentTarget.style.color = link.hoverStyle.color
+                  e.currentTarget.style.backgroundColor = link.hoverStyle.backgroundColor
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.color = ""
+                  e.currentTarget.style.backgroundColor = ""
+                }}
               >
                 <Icon className="w-5 h-5" />
               </a>
