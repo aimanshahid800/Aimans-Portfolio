@@ -6,6 +6,15 @@ import RotatingSubtitle from "./rotating-subtitle"
 import StarButton from "./StarButton"
 import RidgeButton from "./RidgeButton"
 import { Magnetic } from "./Magnetic"
+import { Github, Linkedin, Mail, FileText } from "lucide-react"
+
+// Social links for the mobile-only row below the profile picture
+const socialLinks = [
+  { name: "GitHub",   href: "https://github.com/aimanshahid800",                  icon: Github,   external: true  },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/aiman-shahid-b49035320", icon: Linkedin, external: true  },
+  { name: "Email",    href: "mailto:aimanshahid800@gmail.com",                    icon: Mail,     external: false },
+  { name: "Resume",   href: "/resume",                                             icon: FileText, external: false },
+]
 
 export default function HeroSection() {
   const [scrollY, setScrollY] = useState(0)
@@ -101,6 +110,36 @@ export default function HeroSection() {
               </div>
             </Magnetic>
           </div>
+        </div>
+
+        {/* ── Mobile-only social icons row ─────────────────────────────────────
+            Visible below md (< 768 px) only — desktop right sidebar handles
+            these icons on md and above. Placed between profile image and subtitle.
+        */}
+        <div className="md:hidden flex items-center justify-center gap-3 mt-12 mb-1">
+          {socialLinks.map((link) => {
+            const Icon = link.icon
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                title={link.name}
+                aria-label={link.name}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                className="
+                  flex items-center justify-center
+                  w-11 h-11 rounded-xl
+                  text-black bg-[#fd5f94]
+                  transition-all duration-300
+                  hover:brightness-110 hover:scale-105 active:scale-95
+                  shadow-[0_4px_14px_rgba(255,45,120,0.35)]
+                "
+              >
+                <Icon className="w-5 h-5" />
+              </a>
+            )
+          })}
         </div>
 
         {/* Subtitle and Buttons */}

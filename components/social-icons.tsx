@@ -8,25 +8,25 @@ const socialLinks = [
     name: "GitHub",
     href: "https://github.com/aimanshahid800",
     icon: Github,
-    hoverStyle: { color: "#000000", backgroundColor: "rgba(255, 255, 255, 0.21)" },
+    hoverStyle: { color: "#ffffffff", backgroundColor: "rgba(0, 0, 0, 1)" },
   },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/aiman-shahid-b49035320",
     icon: Linkedin,
-    hoverStyle: { color: "#0A66C2", backgroundColor: "rgba(255, 255, 255, 0.21)" },
+    hoverStyle: { color: "#0A66C2", backgroundColor: "rgba(0, 0, 0, 1)" },
   },
   {
     name: "Email",
     href: "mailto:aimanshahid800@gmail.com",
     icon: Mail,
-    hoverStyle: { color: "#ea4335", backgroundColor: "rgba(255, 255, 255, 0.21)" },
+    hoverStyle: { color: "#ea4335", backgroundColor: "rgba(0, 0, 0, 1)" },
   },
   {
     name: "Resume",
     href: "/resume",
     icon: FileText,
-    hoverStyle: { color: "#7d08eaff", backgroundColor: "rgba(255, 255, 255, 0.21)" },
+    hoverStyle: { color: "#7d08eaff", backgroundColor: "rgba(0, 0, 0, 1)" },
   },
 ]
 

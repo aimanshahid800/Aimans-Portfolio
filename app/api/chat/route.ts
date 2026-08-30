@@ -35,7 +35,10 @@ export async function POST(req: Request) {
     const apiKey = process.env.PORTFOLIO_CHATBOT_KEY;
     if (!apiKey) {
       console.error("PORTFOLIO_CHATBOT_KEY is not configured");
-      return NextResponse.json({ error: "API configuration error" }, { status: 500 });
+      return NextResponse.json(
+        { error: "The assistant is temporarily unavailable. Please try again later." },
+        { status: 503 }
+      );
     }
 
     const systemInstructionText = `You are the portfolio assistant for Aiman Shahid (Aimi), a final-year BSCS student at Lahore College for Women University (LCWU), based in Lahore, Pakistan. Answer questions ONLY about her, her skills, and her projects, using this information:
