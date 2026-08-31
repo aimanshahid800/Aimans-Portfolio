@@ -2,7 +2,7 @@
 
 A modern, highly interactive, futuristic personal portfolio built with **Next.js 15**, **React 19**, **Tailwind CSS v4**, **GSAP**, and **Framer Motion**. Designed for smooth user experience, glassmorphic UI, dynamic WebGL shader background (Soft Aurora), and interactive UI animations.
 
-![Portfolio Banner](projects/placeholder-4.png) 
+![Portfolio Banner](projects/placeholder-4.jpg) 
 
 ## What it does & who it's for
 A personal portfolio site built to show recruiters, hiring managers, and university reviewers that I build **agentic AI systems** — not just web apps. It leads with two AI projects (Nyra, a RAG chatbot, and AI Task Teller, a multi-agent system), includes a working contact form, and a live AI-powered chatbot ("Ask about Aiman") so visitors can interact with the site itself.
