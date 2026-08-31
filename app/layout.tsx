@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Poppins, Inter } from "next/font/google"
 import "./globals.css"
 import ChatWidget from "@/components/chat-widget"
+import { Analytics } from "@vercel/analytics/react"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -51,6 +52,7 @@ export default function RootLayout({
       <body className="font-body antialiased">
         {children}
         <ChatWidget />
+        <Analytics />
       </body>
     </html>
   )
