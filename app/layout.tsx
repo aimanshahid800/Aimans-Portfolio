@@ -25,6 +25,20 @@ export const metadata: Metadata = {
   verification: {
     google: "pDu0XBNSEcdbnGDVta2tjVBxiw0w9KoNb5bWba6Q3gQ",
   },
+  openGraph: {
+    title: "aimTECH - Portfolio",
+    description: "Agentic AI systems — RAG pipelines & multi-agent orchestration",
+    url: "https://aimans-portfolio.vercel.app",
+    siteName: "aimiTECH",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "aimTECH - Portfolio",
+    description: "Agentic AI systems — RAG pipelines & multi-agent orchestration",
+    images: ["/og-image.png"],
+  },
 }
 
 export default function RootLayout({
