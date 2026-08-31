@@ -19,9 +19,12 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "aimiTECH - Portfolio",
+  title: "aimTECH - Portfolio",
   description: "Modern portfolio showcasing innovative tech solutions",
   generator: "v0.app",
+  verification: {
+    google: "pDu0XBNSEcdbnGDVta2tjVBxiw0w9KoNb5bWba6Q3gQ",
+  },
 }
 
 export default function RootLayout({
