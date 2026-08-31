@@ -13,7 +13,7 @@ import { Github, Linkedin, Mail, FileText } from "lucide-react"
 const socialLinks = [
   { name: "GitHub",   href: "https://github.com/aimanshahid800",                  icon: Github,   external: true,  hoverStyle: { color: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)" } },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/aiman-shahid-b49035320", icon: Linkedin, external: true,  hoverStyle: { color: "#0A66C2", backgroundColor: "rgba(0, 0, 0, 1)" } },
-  { name: "Email",    href: "mailto:aimanshahid800@gmail.com",                    icon: Mail,     external: false, hoverStyle: { color: "#ea4335", backgroundColor: "rgba(0, 0, 0, 1)" } },
+  { name: "Email",    href: "#contact",                    icon: Mail,     external: false, hoverStyle: { color: "#ea4335", backgroundColor: "rgba(0, 0, 0, 1)" } },
   { name: "Resume",   href: "/resume",                                             icon: FileText, external: false, hoverStyle: { color: "#7d08ea", backgroundColor: "rgba(0, 0, 0, 1)" } },
 ]
 
@@ -39,7 +39,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col justify-between relative overflow-hidden pt-16 pb-24"
+      className="min-h-screen flex flex-col justify-between relative overflow-hidden pt-12 pb-8"
     >
       {/* Content */}
       <div
@@ -52,7 +52,7 @@ export default function HeroSection() {
         {/* Name + Profile Image */}
         <div className="relative" style={{ minHeight: 'clamp(250px, 40vw, 500px)' }}>
           <h1 className="font-bold font-heading" style={{ lineHeight: '0.9', position: 'relative', zIndex: 1 }}>
-            <span className="block uppercase" style={{ fontSize: 'clamp(3rem, 14vw, 14rem)', color: '#FF6B9D', WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent)', maskImage: 'linear-gradient(to bottom, black 40%, transparent)', transform: 'scaleY(1.3)', overflow: 'visible', paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
+            <span className="block uppercase" style={{ fontSize: 'clamp(2.5rem, 12vw, 12rem)', color: '#FF6B9D', WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent)', maskImage: 'linear-gradient(to bottom, black 40%, transparent)', transform: 'scaleY(1.3)', overflow: 'visible', paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
               <BlurText
                 text="Aiman"
                 delay={800}
@@ -62,7 +62,7 @@ export default function HeroSection() {
                 className="justify-center"
               />
             </span>
-            <span className="block uppercase" style={{ fontSize: 'clamp(3rem, 14vw, 14rem)', color: '#FF6B9D', WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent)', maskImage: 'linear-gradient(to bottom, black 40%, transparent)', transform: 'scaleY(1.3)', overflow: 'visible', paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
+            <span className="block uppercase" style={{ fontSize: 'clamp(2.5rem, 12vw, 12rem)', color: '#FF6B9D', WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent)', maskImage: 'linear-gradient(to bottom, black 40%, transparent)', transform: 'scaleY(1.3)', overflow: 'visible', paddingLeft: '0.5rem', paddingRight: '0.5rem' }}>
               <BlurText
                 text="Shahid"
                 delay={0}
@@ -87,8 +87,8 @@ export default function HeroSection() {
             <Magnetic intensity={0.4} range={150}>
               <div
                 style={{
-                  width: 'clamp(150px, 22vw, 280px)',
-                  height: 'clamp(150px, 22vw, 280px)',
+                  width: 'clamp(125px, 16vw, 250px)',
+                  height: 'clamp(125px, 16vw, 250px)',
                   borderRadius: '50%',
                   overflow: 'hidden',
                   border: 'none',
@@ -160,12 +160,15 @@ export default function HeroSection() {
         </div>
 
         {/* Subtitle and Buttons */}
-        <div className="mt-16">
-          <p className="text-lg sm:text-xl text-white/60 font-medium mb-8 text-center w-full">
+        <div className="mt-10">
+          <p className="text-base sm:text-lg text-white/60 font-medium mb-2 text-center w-full">
             <RotatingSubtitle
               phrases={["BSCS Student", "AI Developer", "Creative Designer"]}
               className="animate-none"
             />
+          </p>
+          <p className="text-base sm:text-lg text-white/80 font-medium mb-8 text-center w-full max-w-xl mx-auto">
+            I build agentic AI systems — RAG pipelines & multi-agent orchestration
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

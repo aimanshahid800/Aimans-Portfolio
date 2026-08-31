@@ -18,7 +18,7 @@ const socialLinks = [
   },
   {
     name: "Email",
-    href: "mailto:aimanshahid800@gmail.com",
+    href: "#contact",
     icon: Mail,
     hoverStyle: { color: "#ea4335", backgroundColor: "rgba(0, 0, 0, 1)" },
   },
@@ -55,8 +55,8 @@ export default function SocialIcons() {
           <a
             key={link.name}
             href={link.href}
-            target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-            rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+            target={link.href.startsWith("#") ? undefined : "_blank"}
+            rel={link.href.startsWith("#") ? undefined : "noopener noreferrer"}
             className="social-icons-item"
             title={link.name}
             onMouseEnter={() => setHoveredName(link.name)}

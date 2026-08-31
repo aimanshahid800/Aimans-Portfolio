@@ -24,29 +24,13 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Classroom Clone",
-    category: "FULL-STACK · WEB APP",
-    description:
-      "Role-based learning platform with assignment management, live comments, and dark mode — built and led with a 4-member team.",
-    imageUrl: "/projects/placeholder-1.png",
-    techStack: ["PHP", "MySQL", "Git"],
-    repoUrl: "#",
-    liveUrl: "#",
-    accentColor: "#ff2d78",
-    secondaryColor: "#ff6b9d",
-    tagBg: "rgba(255, 107, 157, 0.15)",
-    tagText: "#ff9ec6",
-    buttonGradient: "linear-gradient(135deg, #ff2d78, #ff6b9d)",
-    borderColor: "rgba(255, 107, 157, 0.2)",
-  },
-  {
     title: "Nyra",
     category: "AI · RAG CHATBOT",
     description:
       "Context-aware AI companion with persistent memory, powered by a semantic RAG pipeline and a glassmorphic interface.",
     imageUrl: "/projects/placeholder-2.png",
     techStack: ["FastAPI", "Qdrant", "Chainlit"],
-    repoUrl: "#",
+    repoUrl: "https://github.com/aimanshahid800/Nyra-AI-Chatbot",
     liveUrl: "#",
     accentColor: "#10b981",
     secondaryColor: "#34d399",
@@ -54,6 +38,22 @@ const projects: Project[] = [
     tagText: "#6ee7b7",
     buttonGradient: "linear-gradient(135deg, #059669, #10b981)",
     borderColor: "rgba(16, 185, 129, 0.3)",
+  },
+  {
+    title: "Classroom Clone",
+    category: "FULL-STACK · WEB APP",
+    description:
+      "Role-based learning platform with assignment management, live comments, and dark mode — built and led with a 4-member team.",
+    imageUrl: "/projects/placeholder-1.png",
+    techStack: ["PHP", "MySQL", "Git"],
+    repoUrl: "https://github.com/aimanshahid800/google-classroom-clone-2",
+    liveUrl: "#",
+    accentColor: "#ff2d78",
+    secondaryColor: "#ff6b9d",
+    tagBg: "rgba(255, 107, 157, 0.15)",
+    tagText: "#ff9ec6",
+    buttonGradient: "linear-gradient(135deg, #ff2d78, #ff6b9d)",
+    borderColor: "rgba(255, 107, 157, 0.2)",
   },
   {
     title: "Mood-Sync",
@@ -71,6 +71,22 @@ const projects: Project[] = [
     buttonGradient: "linear-gradient(135deg, #acb61bff, #bebc44ff)",
     borderColor: "rgba(236, 247, 85, 0.3)",
   },
+  {
+  title: "This Portfolio",
+  category: "AI-POWERED · PERSONAL SITE",
+  description:
+    "This site itself — featuring a Gemini-powered chatbot that answers questions about my work in real time, plus a live contact form wired end-to-end.",
+  imageUrl: "/projects/placeholder-4.jpg",
+  techStack: ["Next.js", "Gemini API", "Vercel"],
+  repoUrl: "https://github.com/aimanshahid800/Aimans-Portfolio",
+  liveUrl: "https://aimans-portfolio.vercel.app",
+  accentColor: "#6b106eff",
+  secondaryColor: "#6b327aff",
+  tagBg: "#813d7dff",
+  tagText: "#ffd5f3ff",
+  buttonGradient: "linear-gradient(135deg, #5a114eff, #55214bff)",
+  borderColor: "#502f4eff",
+  }
 ];
 
 export interface ProjectCarouselProps {

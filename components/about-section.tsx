@@ -30,10 +30,10 @@ const timelineSteps = [
   },
   {
     id: 4,
-    role: "Future Engineer",
+    role: "Agentic AI Engineer",
     subtitle: "Building Intelligent Systems",
     description:
-      "Aiming to grow into a software engineering role, building intelligent agentic systems that shape the future.",
+      "I build agentic AI systems — multi-agent orchestration and RAG pipelines — that solve real problems.",
     year: "NOW",
   },
 ]
