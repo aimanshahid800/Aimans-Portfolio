@@ -384,6 +384,101 @@ export function CinematicFooter() {
               © 2024-2026 aimTECH. All rights reserved.
             </div>
 
+            <a
+  href="https://internship.flyrank.ai/verify?id=FR-D1-972E2-92F72&first_name=Aiman"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Verify Aiman Shahid's FlyRank AI Internship credential"
+  style={{
+    boxSizing: "border-box",
+    margin: "0",
+    padding: "0",
+    border: "0",
+    background: "none",
+    textDecoration: "none",
+    fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif",
+    fontStyle: "normal",
+    lineHeight: "1.25",
+    textTransform: "none",
+    float: "none",
+    WebkitFontSmoothing: "antialiased",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "9px",
+    fontSize: "14px",
+    color: "rgba(255,255,255,0.8)",
+    borderBottom: "1px solid rgba(84,227,153,0.25)",
+    paddingBottom: "3px",
+    flexWrap: "wrap",
+    rowGap: "2px"
+  }}
+>
+  <svg
+    width="15"
+    height="15"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    focusable="false"
+    style={{
+      display: "block",
+      flex: "none",
+      opacity: "1",
+      transform: "none",
+      maxWidth: "none"
+    }}
+  ><circle cx="12" cy="12" r="10" stroke="#54E399" strokeWidth="1.5" /><path d="M7.9 12.3l2.8 2.8 5.4-5.8" stroke="#54E399" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+  <span
+    style={{
+      margin: "0",
+      padding: "0",
+      border: "0",
+      background: "none",
+      color: "inherit",
+      fontWeight: "400",
+      fontStyle: "normal",
+      letterSpacing: "normal",
+      textTransform: "none",
+      textDecoration: "none",
+      whiteSpace: "nowrap",
+      float: "none"
+    }}
+  >FlyRank AI Internship</span>
+  <span
+    style={{
+      margin: "0",
+      padding: "0",
+      border: "0",
+      background: "none",
+      color: "rgba(255,255,255,0.55)",
+      fontWeight: "400",
+      fontStyle: "normal",
+      letterSpacing: "normal",
+      textTransform: "none",
+      textDecoration: "none",
+      whiteSpace: "normal",
+      float: "none"
+    }}
+  >·</span>
+  <span
+    style={{
+      margin: "0",
+      padding: "0",
+      border: "0",
+      background: "none",
+      color: "#54E399",
+      fontWeight: "600",
+      fontStyle: "normal",
+      letterSpacing: "normal",
+      textTransform: "none",
+      textDecoration: "none",
+      whiteSpace: "normal",
+      float: "none"
+    }}
+  >Verified</span>
+</a>
+
             {/* "Crafted with Love" Badge */}
             <div className="footer-glass-pill px-6 py-3 rounded-full flex items-center gap-2 order-1 md:order-2 cursor-default border-white/50">
               <span className="text-white/50 text-[10px] md:text-xs font-bold uppercase tracking-widest">Crafted with</span>
